@@ -3,6 +3,7 @@ export * from './config/database'
 
 export * from './api/commit'
 export * from './api/create'
+export * from './api/detail'
 export * from './api/get'
 export * from './api/migrate'
 export * from './api/raw'
