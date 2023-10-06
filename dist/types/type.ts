@@ -48,6 +48,12 @@ export interface RemoveType {
     id: number;
 }
 
+export interface RestoreType {
+    model: string;
+    database: DatabaseType;
+    id: number;
+}
+
 export interface RawType {
     database: DatabaseType;
     query: string,
