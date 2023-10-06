@@ -55,7 +55,6 @@ export interface TransactionType {
 export interface PaginateType {
     page: number;
     limit: number;
-    model?: string | null;
 }
 
 export interface ResultType {
