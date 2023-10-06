@@ -7,20 +7,20 @@ export interface DatabaseType {
 }
 
 export interface MigrateType {
-    request: any;
+    response: any;
     models: any;
     database: DatabaseType;
 }
 
 export interface SeedType {
-    request: any;
+    response: any;
     seed: string;
     path: string;
     database: DatabaseType;
 }
 
 export interface GetType {
-    request: any;
+    response: any;
     model: string;
     database: DatabaseType;
 }

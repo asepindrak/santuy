@@ -1,7 +1,7 @@
 import Database from '../config/database'
 import { MigrateType } from '../types/type'
 
-async function migrate({ request, models, database }: MigrateType) {
+async function migrate({ response, models, database }: MigrateType) {
     const db = new Database(database)
     await db.executeQuery("START TRANSACTION",
         []
@@ -55,7 +55,7 @@ async function migrate({ request, models, database }: MigrateType) {
         []
     )
 
-    return request.json("DB MIGRATE SUCCESS", { status: 200 })
+    return response.json("DB MIGRATE SUCCESS", { status: 200 })
 }
 
 export { migrate }

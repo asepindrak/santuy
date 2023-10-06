@@ -2,7 +2,7 @@ import Database from '../config/database'
 import fs from 'fs-extra'
 import { SeedType } from '../types/type'
 
-async function seed({ request, seed, path, database }: SeedType) {
+async function seed({ response, seed, path, database }: SeedType) {
     const db = new Database(database)
     await db.executeQuery("START TRANSACTION",
         []
@@ -37,7 +37,7 @@ async function seed({ request, seed, path, database }: SeedType) {
         []
     )
 
-    return request.json("DB SEED SUCCESS", { status: 200 })
+    return response.json("DB SEED SUCCESS", { status: 200 })
 }
 
 export { seed }
