@@ -27,3 +27,7 @@ export interface QueryType {
     params: Array<string | number>;
     database: DatabaseType;
 }
+
+export interface TransactionType {
+    database: DatabaseType;
+}
