@@ -1,5 +1,5 @@
 import Database from '../config/database'
-import fs from 'fs-extra'
+import { promises as fs } from 'fs';
 import { SeedType } from '../types/type'
 
 async function seed({ model, path, database }: SeedType) {
@@ -8,7 +8,7 @@ async function seed({ model, path, database }: SeedType) {
         []
     )
 
-    const json = await fs.readJsonSync(`${path}/${model}.json`)
+    const json = await fs.readFile(`${path}/${model}.json`, 'utf8');
 
     // console.log(json)
     let item: any
