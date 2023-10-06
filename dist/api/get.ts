@@ -1,20 +1,29 @@
 import Database from '../config/database'
 import { GetType } from '../types/type'
 
-async function get({ model, database }: GetType) {
+async function get({ model, database, paginate }: GetType) {
     const db = new Database(database)
     if (!model) {
         return false
     }
-    await db.executeQuery("START TRANSACTION",
+    let query = `SELECT * FROM ${model} where trash = 0 order by id desc`
+    if (paginate) {
+        let skip = (paginate.page > 1) ? (paginate.page * paginate.limit) - paginate.limit : 0
+        query += ` LIMIT ${skip}, ${paginate.limit}`
+    }
+
+    let data = await db.executeQuery(query,
         []
     )
-    let result = await db.executeQuery(`SELECT * FROM ${model} where trash = 0 order by id desc`,
-        []
-    )
-    await db.executeQuery("COMMIT",
-        []
-    )
+    if (!data) {
+        return false
+    }
+    let count: any = await db.executeQuery(`SELECT COUNT(*) as total FROM ${model}`, [])
+    let result = {
+        data,
+        page: paginate?.page || 1,
+        total: count[0].total
+    }
     return result
 }
 

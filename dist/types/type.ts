@@ -20,8 +20,15 @@ export interface SeedType {
 export interface GetType {
     model: string;
     database: DatabaseType;
+    paginate?: PaginateType | null;
 }
 
 export interface TransactionType {
     database: DatabaseType;
+}
+
+export interface PaginateType {
+    page: number;
+    limit: number;
+    model?: string | null;
 }
