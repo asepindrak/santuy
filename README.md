@@ -16,6 +16,11 @@ Santuy is a nextjs framework and SQL for auto generate data from model
 
 ### Installation
 
+```ts
+//create database santuy
+CREATE DATABASE `santuy`;
+
+```
 ### Model
 
 ```ts
@@ -252,6 +257,39 @@ export async function GET(request: NextRequest) {
     const response: any = await seed(seeder);
     if (!response) {
         return NextResponse.json("Seeding error!", { status: 400 })
+    }
+    return NextResponse.json(response, { status: 200 })
+}
+```
+
+### Get Data
+
+```ts
+//file: api/get/route.ts
+//url: http://localhost:3000/api/get?model=users
+//url: http://localhost:3000/api/get?model=categories
+//url: http://localhost:3000/api/get?model=products
+import { NextResponse } from 'next/server';
+import { NextRequest } from "next/server";
+import { DatabaseType, get, GetType } from 'santuy';
+
+export async function GET(request: NextRequest) {
+    const database: DatabaseType = {
+        host: "localhost",
+        user: "root",
+        password: "",
+        port: 3306,
+        database: "santuy",
+    }
+
+    const model = request.nextUrl.searchParams.get("model") || "";
+    const getData: GetType = {
+        model,
+        database
+    }
+    const response: any = await get(getData);
+    if (!response) {
+        return NextResponse.json("No Data!", { status: 400 })
     }
     return NextResponse.json(response, { status: 200 })
 }
