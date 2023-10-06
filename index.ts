@@ -1,5 +1,0 @@
-export * from './dist/types/type'
-export * from './dist/config/database'
-export * from './dist/api/get'
-export * from './dist/api/migrate'
-export * from './dist/api/seed'

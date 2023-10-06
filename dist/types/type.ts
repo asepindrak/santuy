@@ -21,3 +21,9 @@ export interface GetType {
     model: string;
     database: DatabaseType;
 }
+
+export interface QueryType {
+    query: string;
+    params: Array<string | number>;
+    database: DatabaseType;
+}

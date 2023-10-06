@@ -1,11 +1,15 @@
 {
   "name": "santuy",
-  "version": "1.1.11",
+  "version": "1.1.12",
   "description": "Santuy is a nextjs framework and SQL for auto generate data from model",
-  "main": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "keywords": [
     "santuy",
     "framework",
@@ -22,7 +26,6 @@
     "type": "git",
     "url": "https://github.com/asepindrak/santuy.git"
   },
-  "typings": "index.d.ts",
   "dependencies": {
     "formik": "^2.4.5",
     "mysql2": "^3.6.1",
