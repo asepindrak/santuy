@@ -1,13 +1,19 @@
 {
   "name": "santuy",
-  "version": "1.1.7",
+  "version": "1.1.8",
   "description": "Santuy is a nextjs framework and SQL for auto generate data from model",
   "main": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "santuy"
+    "santuy",
+    "framework",
+    "sql",
+    "nextjs",
+    "typescript-library",
+    "database-migrations",
+    "database-management"
   ],
   "author": "Asep Indra Kurniawan <asepindrakurniawan@gmail.com> (https://asepindrak.github.io/)",
   "license": "ISC",
