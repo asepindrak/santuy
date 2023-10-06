@@ -12,7 +12,7 @@ export interface MigrateType {
 }
 
 export interface SeedType {
-    seed: string;
+    model: string;
     path: string;
     database: DatabaseType;
 }
