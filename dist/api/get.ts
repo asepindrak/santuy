@@ -1,10 +1,10 @@
 import Database from '../config/database'
 import { GetType } from '../types/type'
 
-async function get({ response, model, database }: GetType) {
+async function get({ model, database }: GetType) {
     const db = new Database(database)
     if (!model) {
-        return response.json("error: model not define", { status: 400 })
+        return false
     }
     await db.executeQuery("START TRANSACTION",
         []
@@ -15,7 +15,7 @@ async function get({ response, model, database }: GetType) {
     await db.executeQuery("COMMIT",
         []
     )
-    return response.json(result, { status: 200 })
+    return result
 }
 
 export { get }

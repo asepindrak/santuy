@@ -1,6 +1,6 @@
 {
   "name": "santuy",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Santuy is a next-js framework and api for auto generate data from model",
   "main": "index.js",
   "scripts": {
