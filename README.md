@@ -195,7 +195,7 @@ import { NextRequest } from "next/server"
 import { DatabaseType, migrate, MigrateType } from 'santuy'
 
 export async function GET(request: NextRequest) {
-    let dev = process.env.ENV == "development" || false;
+    let dev = process.env.ENV == "development" ?? false;
     if(!dev){
         return NextResponse.json("Migration not allowed!", { status: 400 })
     }
@@ -234,7 +234,7 @@ import { DatabaseType, seed, SeedType } from 'santuy';
 import path from 'path';
 
 export async function GET(request: NextRequest) {
-    let dev = process.env.ENV == "development" || false;
+    let dev = process.env.ENV == "development" ?? false;
     if(!dev){
         return NextResponse.json("Seed not allowed!", { status: 400 })
     }
@@ -247,7 +247,7 @@ export async function GET(request: NextRequest) {
         database: "santuy",
     }
 
-    const model = request.nextUrl.searchParams.get("model") || "";
+    const model = request.nextUrl.searchParams.get("model") ?? "";
     const jsonPath = path.join(process.cwd(), 'src/seeds');
     const seeder: SeedType = {
         model,
@@ -282,7 +282,7 @@ export async function GET(request: NextRequest) {
         database: "santuy",
     }
 
-    const model = request.nextUrl.searchParams.get("model") || "";
+    const model = request.nextUrl.searchParams.get("model") ?? "";
     const getData: GetType = {
         model,
         database

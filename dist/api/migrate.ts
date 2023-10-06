@@ -30,7 +30,7 @@ async function migrate({ models, database }: MigrateType) {
             WHERE 
             TABLE_SCHEMA LIKE '${database}' AND 
                 TABLE_TYPE LIKE 'BASE TABLE' AND
-                TABLE_NAME = '${model.name}'`, [])
+                TABLE_NAME = '${model.name}'`)
         if (checkTable.length) {
             const countTable = checkTable[0].count
             if (countTable) {
@@ -38,16 +38,16 @@ async function migrate({ models, database }: MigrateType) {
                 let field: any
                 for await (field of model.columns) {
 
-                    const checkColumn: any = await db.executeQuery(`SHOW COLUMNS FROM ${model.name} LIKE '${field.name}'`, [])
+                    const checkColumn: any = await db.executeQuery(`SHOW COLUMNS FROM ${model.name} LIKE '${field.name}'`)
                     if (!checkColumn.length) {
                         let dataType = field.dataType
 
-                        await db.executeQuery(`ALTER TABLE ${model.name} ADD COLUMN ${field.name} ${dataType}`, [])
+                        await db.executeQuery(`ALTER TABLE ${model.name} ADD COLUMN ${field.name} ${dataType}`)
                     }
                 }
             }
         }
-        await db.executeQuery(query, [])
+        await db.executeQuery(query)
     }
 
 

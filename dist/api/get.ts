@@ -1,5 +1,5 @@
 import Database from '../config/database'
-import { GetType } from '../types/type'
+import { GetType, ResultType } from '../types/type'
 
 async function get({ model, database, paginate }: GetType) {
     const db = new Database(database)
@@ -12,16 +12,17 @@ async function get({ model, database, paginate }: GetType) {
         query += ` LIMIT ${skip}, ${paginate.limit}`
     }
 
-    let data = await db.executeQuery(query,
+    let data: any = await db.executeQuery(query,
         []
     )
     if (!data) {
         return false
     }
-    let count: any = await db.executeQuery(`SELECT COUNT(*) as total FROM ${model}`, [])
-    let result = {
+    let count: any = await db.executeQuery(`SELECT COUNT(*) as total FROM ${model}`)
+    let result: ResultType = {
         data,
-        page: paginate?.page || 1,
+        page: paginate?.page ?? 1,
+        limit: paginate?.limit ?? 0,
         total: count[0].total
     }
     return result
