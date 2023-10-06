@@ -16,7 +16,7 @@
     "database-management"
   ],
   "author": "Asep Indra Kurniawan <asepindrakurniawan@gmail.com> (https://asepindrak.github.io/)",
-  "license": "ISC",
+  "license": "MIT",
   "homepage": "https://github.com/asepindrak/santuy#readme",
   "repository": {
     "type": "git",
