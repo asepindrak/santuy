@@ -22,12 +22,6 @@ export interface GetType {
     database: DatabaseType;
 }
 
-export interface QueryType {
-    query: string;
-    params: Array<string | number>;
-    database: DatabaseType;
-}
-
 export interface TransactionType {
     database: DatabaseType;
 }

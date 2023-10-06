@@ -10,7 +10,6 @@ async function seed({ model, path, database }: SeedType) {
 
     const json = await fs.readFile(`${path}/${model}.json`, 'utf8');
 
-    // console.log(json)
     let item: any
     for await (item of JSON.parse(json)) {
         const column = Object.keys(item)
