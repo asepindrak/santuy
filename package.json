@@ -1,6 +1,6 @@
 {
   "name": "santuy",
-  "version": "1.1.10",
+  "version": "1.1.11",
   "description": "Santuy is a nextjs framework and SQL for auto generate data from model",
   "main": "index.ts",
   "scripts": {
