@@ -2,10 +2,11 @@ import Database from '../config/database'
 import { MigrateType } from '../types/type'
 
 async function migrate({ models, database }: MigrateType) {
+    if (!models) {
+        return false
+    }
     const db = new Database(database)
-    await db.executeQuery("START TRANSACTION",
-        []
-    )
+    await db.executeQuery("START TRANSACTION")
     const newModels = Object.values(models)
     let model: any
     for await (model of newModels) {
@@ -51,9 +52,7 @@ async function migrate({ models, database }: MigrateType) {
     }
 
 
-    await db.executeQuery("COMMIT",
-        []
-    )
+    await db.executeQuery("COMMIT")
 
     return true
 }

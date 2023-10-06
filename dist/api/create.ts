@@ -3,7 +3,7 @@ import { CreateType } from '../types/type'
 
 async function create({ model, database, data }: CreateType) {
     const db = new Database(database)
-    if (!data) {
+    if (!data || !model) {
         return false
     }
     const column = Object.keys(data)

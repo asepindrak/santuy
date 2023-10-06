@@ -23,6 +23,12 @@ export interface GetType {
     paginate?: PaginateType | null;
 }
 
+export interface DetailType {
+    model: string;
+    database: DatabaseType;
+    id: number;
+}
+
 export interface CreateType {
     model: string;
     database: DatabaseType;

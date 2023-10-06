@@ -3,7 +3,7 @@ import { UpdateType } from '../types/type'
 
 async function update({ model, database, data, id }: UpdateType) {
     const db = new Database(database)
-    if (!data) {
+    if (!model || !id || !data) {
         return false
     }
     const column = Object.keys(data)

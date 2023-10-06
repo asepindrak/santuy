@@ -12,9 +12,7 @@ async function get({ model, database, paginate }: GetType) {
         query += ` LIMIT ${skip}, ${paginate.limit}`
     }
 
-    let data: any = await db.executeQuery(query,
-        []
-    )
+    let data: any = await db.executeQuery(query)
     if (!data) {
         return false
     }

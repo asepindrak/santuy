@@ -3,7 +3,7 @@ import { RemoveType } from '../types/type'
 
 async function remove({ model, database, id }: RemoveType) {
     const db = new Database(database)
-    if (!id) {
+    if (!id || !model) {
         return false
     }
     let result = await db.executeQuery(`UPDATE ${model} SET trash = 1 WHERE id = ${id}`)

@@ -1,14 +1,16 @@
 import Database from '../config/database'
-import { promises as fs } from 'fs';
+import { promises as fs } from 'fs'
 import { SeedType } from '../types/type'
 
 async function seed({ model, path, database }: SeedType) {
     const db = new Database(database)
-    await db.executeQuery("START TRANSACTION",
-        []
-    )
+    if (!model || !path) {
+        return false
+    }
 
-    const json = await fs.readFile(`${path}/${model}.json`, 'utf8');
+    await db.executeQuery("START TRANSACTION")
+
+    const json = await fs.readFile(`${path}/${model}.json`, 'utf8')
 
     let item: any
     for await (item of JSON.parse(json)) {
@@ -32,9 +34,7 @@ async function seed({ model, path, database }: SeedType) {
         await db.executeQuery(queryStr, queryArr)
     }
 
-    await db.executeQuery("COMMIT",
-        []
-    )
+    await db.executeQuery("COMMIT")
 
     return true
 }
