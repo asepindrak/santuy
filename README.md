@@ -114,7 +114,7 @@ export { CategoryModel }
 ```
 
 ```ts
-//model categories (file: models/product-model.ts)
+//model products (file: models/product-model.ts)
 const ProductModel = {
     name: 'products',
     icon: 'AiOutlineFileAdd',
