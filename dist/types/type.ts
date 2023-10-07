@@ -14,9 +14,9 @@ export interface ModelType {
 }
 
 export interface ColumnType {
-    name: 'id' | string;
+    name: 'id' | string | ModelType;
     title: string;
-    dataType: string;
+    dataType?: string;
     inputType?: InputType;
     selectData?: string | Array<string>;
     relation?: string;
@@ -42,7 +42,7 @@ export interface SeedType {
 export interface GetType {
     model: ModelType;
     database: DatabaseType;
-    paginate?: PaginateType | null;
+    paginate?: PaginateType;
 }
 
 export interface DetailType {
@@ -92,7 +92,7 @@ export interface PaginateType {
 }
 
 export interface ResultType {
-    data: Array<Object | null> | null;
+    data: Array<Object | null> | null | false | undefined;
     page?: number;
     limit?: number;
     total?: number;
