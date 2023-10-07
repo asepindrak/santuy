@@ -13,3 +13,5 @@ export * from './api/rollback'
 export * from './api/seed'
 export * from './api/start'
 export * from './api/update'
+
+export * from './utils/util'
