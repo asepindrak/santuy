@@ -1,6 +1,6 @@
 {
   "name": "santuy",
-  "version": "1.5.3",
+  "version": "1.5.4",
   "description": "Santuy is a nextjs framework and SQL for auto generate data from model",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

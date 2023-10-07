@@ -3,6 +3,6 @@ const PriceFormat = new Intl.NumberFormat("id-ID", {
     currency: "IDR",
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
-});
+})
 
 export { PriceFormat }

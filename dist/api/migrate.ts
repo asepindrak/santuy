@@ -1,5 +1,5 @@
 import Database from '../config/database'
-import { MigrateType } from '../types/type'
+import { ColumnType, MigrateType, ModelType } from '../types/type'
 
 async function migrate({ models, database }: MigrateType) {
     if (!models) {
@@ -7,14 +7,14 @@ async function migrate({ models, database }: MigrateType) {
     }
     const db = new Database(database)
     await db.executeQuery("START TRANSACTION")
-    const newModels = Object.values(models)
-    let model: any
+    const newModels: any = Object.values(models)
+    let model: ModelType
     for await (model of newModels) {
 
         let query: string = `CREATE TABLE IF NOT EXISTS ${model.name} ( `
 
 
-        let field: any
+        let field: ColumnType
         for await (field of model.columns) {
             let dataType = field.dataType
             query += `${field.name} ${dataType}, `
@@ -36,7 +36,7 @@ async function migrate({ models, database }: MigrateType) {
             const countTable = checkTable[0].count
             if (countTable) {
                 //check if column exist
-                let field: any
+                let field: ColumnType
                 for await (field of model.columns) {
 
                     const checkColumn: any = await db.executeQuery(`SHOW COLUMNS FROM ${model.name} LIKE '${field.name}'`)
