@@ -14,10 +14,14 @@
     "santuy",
     "framework",
     "sql",
+    "mysql",
     "nextjs",
-    "typescript-library",
+    "typescript",
+    "database",
     "database-migrations",
-    "database-management"
+    "database-management",
+    "query-builder",
+    "orm"
   ],
   "author": "Asep Indra Kurniawan <asepindrakurniawan@gmail.com> (https://asepindrak.github.io/)",
   "license": "MIT",
@@ -25,6 +29,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/asepindrak/santuy.git"
+  },
+  "bin": {
+    "santuy": "dist/bin/index.ts"
   },
   "dependencies": {
     "formik": "^2.4.5",

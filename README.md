@@ -6,11 +6,15 @@ Santuy is a nextjs framework and SQL for auto generate data from model
 
 **Features**:
 
-- Migrate database from model schema
+- Migrate database from model schema (automatic truncate table)
+- DB Seed support
 - Powerful TypeScript support
 - Built-in async validation support
-- Built-in Database Transaction support (automatic rollback if sql fails)
-- Extensible: add your own component / SQL
+- Relation & include support
+- Built-in Database Transaction support (automatic rollback if query fails)
+- Built-in pagination
+- Built-in component & utils (under development)
+- Extensible: add your own component and query
 
 ## Getting Started
 
@@ -21,7 +25,7 @@ Santuy is a nextjs framework and SQL for auto generate data from model
 CREATE DATABASE `santuy`;
 
 ```
-### Model
+### Models Example
 
 ```ts
 //model (models/models.ts)
@@ -186,6 +190,8 @@ export { ProductModel }
 
 ### Migration
 
+```Santuy CLI DB Migration is under development!```
+
 ```ts
 //file: api/migrate/route.ts
 //GET: http://localhost:3000/api/migrate
@@ -215,6 +221,8 @@ export async function GET(request: NextRequest) {
 
 
 ### Seed
+
+```Santuy CLI DB Seed is under development!```
 
 ```ts
 //file: api/seed/route.ts
