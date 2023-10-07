@@ -7,7 +7,7 @@ async function migrate({ models, database }: MigrateType) {
     }
     const db = new Database(database)
     await db.executeQuery("START TRANSACTION")
-    const newModels: any = Object.values(models)
+    const newModels: Array<ModelType> = Object.values(models)
     let model: ModelType
     for await (model of newModels) {
 

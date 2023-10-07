@@ -29,7 +29,7 @@ export interface IncludeType {
 }
 
 export interface MigrateType {
-    models: Array<ModelType>;
+    models: any;
     database: DatabaseType;
 }
 
