@@ -7,7 +7,7 @@ async function update({ model, database, data, id }: UpdateType) {
         return false
     }
     const column = Object.keys(data)
-    let queryStr = `UPDATE ${model} SET `
+    let queryStr = `UPDATE ${model.name} SET `
     let queryArr: any = []
     let index = 0
     let col: any

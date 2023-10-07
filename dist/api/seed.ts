@@ -10,12 +10,12 @@ async function seed({ model, path, database }: SeedType) {
 
     await db.executeQuery("START TRANSACTION")
 
-    const json = await fs.readFile(`${path}/${model}.json`, 'utf8')
+    const json = await fs.readFile(`${path}/${model.name}.json`, 'utf8')
 
     let item: any
     for await (item of JSON.parse(json)) {
         const column = Object.keys(item)
-        let queryStr = `INSERT INTO ${model} SET `
+        let queryStr = `INSERT INTO ${model.name} SET `
         let queryArr: any = []
         let index = 0
         let col: any

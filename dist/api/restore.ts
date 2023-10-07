@@ -6,7 +6,7 @@ async function restore({ model, database, id }: RestoreType) {
     if (!id || !model) {
         return false
     }
-    let result = await db.executeQuery(`UPDATE ${model} SET trash = 0 WHERE id = ${id}`)
+    let result = await db.executeQuery(`UPDATE ${model.name} SET trash = 0 WHERE id = ${id}`)
     if (!result) {
         return false
     }

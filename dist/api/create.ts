@@ -7,7 +7,7 @@ async function create({ model, database, data }: CreateType) {
         return false
     }
     const column = Object.keys(data)
-    let queryStr = `INSERT INTO ${model} SET `
+    let queryStr = `INSERT INTO ${model.name} SET `
     let queryArr: any = []
     let index = 0
     let col: any

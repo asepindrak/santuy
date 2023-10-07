@@ -6,7 +6,7 @@ async function remove({ model, database, id }: RemoveType) {
     if (!id || !model) {
         return false
     }
-    let result = await db.executeQuery(`UPDATE ${model} SET trash = 1 WHERE id = ${id}`)
+    let result = await db.executeQuery(`UPDATE ${model.name} SET trash = 1 WHERE id = ${id}`)
     if (!result) {
         return false
     }

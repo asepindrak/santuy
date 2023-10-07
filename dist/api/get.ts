@@ -6,7 +6,7 @@ async function get({ model, database, paginate }: GetType) {
     if (!model) {
         return false
     }
-    let query = `SELECT * FROM ${model} where trash = 0 order by id desc`
+    let query = `SELECT * FROM ${model.name} where trash = 0 order by id desc`
     if (paginate) {
         let skip = (paginate.page > 1) ? (paginate.page * paginate.limit) - paginate.limit : 0
         query += ` LIMIT ${skip}, ${paginate.limit}`
@@ -16,7 +16,7 @@ async function get({ model, database, paginate }: GetType) {
     if (!data) {
         return false
     }
-    let count: any = await db.executeQuery(`SELECT COUNT(*) as total FROM ${model}`)
+    let count: any = await db.executeQuery(`SELECT COUNT(*) as total FROM ${model.name}`)
     let result: ResultType = {
         data,
         page: paginate?.page ?? 1,

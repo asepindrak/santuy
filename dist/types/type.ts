@@ -6,50 +6,72 @@ export interface DatabaseType {
     database: string;
 }
 
+export interface ModelType {
+    name: string;
+    icon?: string;
+    columns: Array<ColumnType>;
+    includes?: Array<IncludeType>;
+}
+
+export interface ColumnType {
+    name: 'id' | string;
+    title: string;
+    dataType: string;
+    inputType?: InputType;
+    selectData?: string | Array<string>;
+    relation?: string;
+}
+
+type InputType = 'text' | 'number' | 'password' | 'email' | 'select' | 'textarea' | 'file' | 'image' | 'hidden' | 'checkbox';
+export interface IncludeType {
+    model: ModelType;
+    relation: string;
+}
+
 export interface MigrateType {
-    models: any;
+    models: Array<ModelType>;
     database: DatabaseType;
 }
 
 export interface SeedType {
-    model: string;
+    model: ModelType;
     path: string;
     database: DatabaseType;
 }
 
 export interface GetType {
-    model: string;
+    model: ModelType;
     database: DatabaseType;
     paginate?: PaginateType | null;
 }
 
 export interface DetailType {
-    model: string;
+    model: ModelType;
     database: DatabaseType;
     id: number | string;
 }
 
 export interface CreateType {
-    model: string;
+    model: ModelType;
     database: DatabaseType;
     data: any;
 }
 
 export interface UpdateType {
-    model: string;
+    model: ModelType;
     database: DatabaseType;
     data: any;
     id: number | string;
 }
 
 export interface RemoveType {
-    model: string;
+    model: ModelType;
     database: DatabaseType;
     id: number | string;
 }
 
 export interface RestoreType {
-    model: string;
+    model: ModelType;
     database: DatabaseType;
     id: number | string;
 }
@@ -76,25 +98,4 @@ export interface ResultType {
     total?: number;
 }
 
-export interface ModelType {
-    name: string;
-    icon?: string;
-    columns: Array<ColumnType>;
-    includes?: Array<IncludeType>;
-}
 
-type InputType = 'text' | 'number' | 'password' | 'email' | 'select' | 'textarea' | 'file' | 'image' | 'hidden' | 'checkbox';
-
-export interface ColumnType {
-    name: 'id' | string;
-    title: string;
-    dataType: string;
-    inputType?: InputType;
-    selectData?: string | Array<string>;
-    relation?: string;
-}
-
-export interface IncludeType {
-    model: string;
-    relation: string;
-}
