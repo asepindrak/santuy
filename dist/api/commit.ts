@@ -1,4 +1,4 @@
-import Database from '../config/database'
+import Database from '../config/database.js'
 import { TransactionType } from '../types/type'
 
 async function commit({ database }: TransactionType) {

@@ -1,4 +1,4 @@
-import Database from '../config/database'
+import Database from '../config/database.js'
 import { UpdateType } from '../types/type'
 
 async function update({ model, database, data, id }: UpdateType) {

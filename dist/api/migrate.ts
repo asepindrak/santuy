@@ -1,4 +1,4 @@
-import Database from '../config/database'
+import Database from '../config/database.js'
 import { ColumnType, MigrateType, ModelType } from '../types/type'
 
 async function migrate({ models, database }: MigrateType) {

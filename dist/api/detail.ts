@@ -1,4 +1,4 @@
-import Database from '../config/database'
+import Database from '../config/database.js'
 import { DetailType, GetType, ResultType } from '../types/type'
 
 async function detail({ model, database, id }: DetailType) {

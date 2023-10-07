@@ -1,8 +1,7 @@
-import Database from '../config/database.js'
+import Database from './database.mjs'
 import { promises as fs } from 'fs'
-import { SeedType } from '../types/type'
 
-async function seed({ model, path, database }: SeedType) {
+async function seed(database, model) {
     const db = new Database(database)
     if (!model || !path) {
         return false
@@ -12,13 +11,13 @@ async function seed({ model, path, database }: SeedType) {
 
     const json = await fs.readFile(`${path}/${model.name}.json`, 'utf8')
 
-    let item: any
+    let item
     for await (item of JSON.parse(json)) {
         const column = Object.keys(item)
         let queryStr = `INSERT INTO ${model.name} SET `
-        let queryArr: any = []
+        let queryArr = []
         let index = 0
-        let col: any
+        let col
         for await (col of column) {
             if (index > 0 && index < column.length) {
                 queryStr += `, `
