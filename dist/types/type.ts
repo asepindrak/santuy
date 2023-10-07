@@ -42,7 +42,7 @@ export interface SeedType {
 export interface GetType {
     model: ModelType;
     database: DatabaseType;
-    paginate?: PaginateType;
+    paginate?: PaginateType | null;
 }
 
 export interface DetailType {
