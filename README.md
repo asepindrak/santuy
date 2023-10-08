@@ -40,6 +40,25 @@ CREATE DATABASE `database_name`;
 
 ```
 
+#### modify tsconfig.json
+```json
+{
+  "compilerOptions": {
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ],
+      "@santuy/*": [
+        "./santuy/*"
+      ],
+      "@santuyapi/*": [
+        "./node_modules/santuy/dist/*"
+      ]
+    }
+  }
+}
+```
+
 ```bash
 npx santuy init
 ```
@@ -249,28 +268,12 @@ npx santuy seed users
 
 ### API SETUP FOR NEXTJS
 
-#### modify tsconfig.js
-```json
-{
-  "compilerOptions": {
-    "paths": {
-      "@/*": [
-        "./src/*"
-      ],
-      "@santuy/*": [ //add this
-        "./santuy/*"
-      ]
-    }
-  }
-}
-```
 ### Get Data
 
 ```ts
 //file: api/get/route.ts
 //GET: http://localhost:3000/api/get/?model=users
 //Pagination -> GET: http://localhost:3000/api/get/?model=users&page=1&limit=10
-import { database } from '@/config/db';
 import { NextResponse } from 'next/server';
 import { NextRequest } from "next/server";
 import { GetType, get, ModelType } from 'santuy';
@@ -286,7 +289,6 @@ export async function GET(request: NextRequest) {
     limit = parseInt(limit);
     let getData: GetType = {
         model,
-        database,
         paginate: page ? {
             page,
             limit
@@ -307,7 +309,6 @@ export async function GET(request: NextRequest) {
 ```ts
 //file: api/detail/route.ts
 //GET: http://localhost:3000/api/detail/?model=users&id=1
-import { database } from '@/config/db';
 import { NextResponse } from 'next/server';
 import { NextRequest } from "next/server";
 import { DetailType, ModelType, detail } from 'santuy';
@@ -321,7 +322,6 @@ export async function GET(request: NextRequest) {
     let id: any = request.nextUrl.searchParams.get("id");
     let detailData: DetailType = {
         model,
-        database,
         id: parseInt(id) ?? null
     }
     const response: any = await detail(detailData);
@@ -337,7 +337,6 @@ export async function GET(request: NextRequest) {
 ```ts
 //file: api/create/route.ts
 //POST: http://localhost:3000/api/create/?model=users
-import { database } from '@/config/db';
 import { NextResponse } from 'next/server';
 import { NextRequest } from "next/server";
 import { CreateType, ModelType, create } from 'santuy';
@@ -350,7 +349,6 @@ export async function POST(request: NextRequest) {
     const data = await request.json();
     let createData: CreateType = {
         model,
-        database,
         data
     }
     const response: any = await create(createData);
@@ -366,7 +364,6 @@ export async function POST(request: NextRequest) {
 ```ts
 //file: api/update/route.ts
 //PUT: http://localhost:3000/api/update/?model=users&id=1
-import { database } from '@/config/db';
 import { NextResponse } from 'next/server';
 import { NextRequest } from "next/server";
 import { ModelType, UpdateType, update } from 'santuy';
@@ -382,7 +379,6 @@ export async function PUT(request: NextRequest) {
 
     let updateData: UpdateType = {
         model,
-        database,
         data,
         id: parseInt(id)
     }
@@ -399,7 +395,6 @@ export async function PUT(request: NextRequest) {
 ```ts
 //file: api/remove/route.ts
 //DELETE: http://localhost:3000/api/remove/?model=users&id=1
-import { database } from '@/config/db';
 import { NextResponse } from 'next/server';
 import { NextRequest } from "next/server";
 import { ModelType, RemoveType, remove } from 'santuy';
@@ -414,7 +409,6 @@ export async function DELETE(request: NextRequest) {
 
     let removeData: RemoveType = {
         model,
-        database,
         id: parseInt(id)
     }
     const response: any = await remove(removeData);
@@ -430,7 +424,6 @@ export async function DELETE(request: NextRequest) {
 ```ts
 //file: api/restore/route.ts
 //PUT: http://localhost:3000/api/restore/?model=users&id=1
-import { database } from '@/config/db';
 import { NextResponse } from 'next/server';
 import { NextRequest } from "next/server";
 import { ModelType, RestoreType, restore } from 'santuy';
@@ -445,7 +438,6 @@ export async function PUT(request: NextRequest) {
 
     let restoreData: RestoreType = {
         model,
-        database,
         id: parseInt(id)
     }
     const response: any = await restore(restoreData);
@@ -496,60 +488,47 @@ export interface RelationType {
 
 export interface MigrateType {
     models: any;
-    database: DatabaseType;
 }
 
 export interface SeedType {
     model: ModelType;
     path: string;
-    database: DatabaseType;
 }
 
 export interface GetType {
     model: ModelType;
-    database: DatabaseType;
     paginate?: PaginateType | null;
 }
 
 export interface DetailType {
     model: ModelType;
-    database: DatabaseType;
     id: number | string;
 }
 
 export interface CreateType {
     model: ModelType;
-    database: DatabaseType;
     data: any;
 }
 
 export interface UpdateType {
     model: ModelType;
-    database: DatabaseType;
     data: any;
     id: number | string;
 }
 
 export interface RemoveType {
     model: ModelType;
-    database: DatabaseType;
     id: number | string;
 }
 
 export interface RestoreType {
     model: ModelType;
-    database: DatabaseType;
     id: number | string;
 }
 
 export interface RawType {
-    database: DatabaseType;
     query: string,
     params?: Array<string | number>
-}
-
-export interface TransactionType {
-    database: DatabaseType;
 }
 
 export interface PaginateType {

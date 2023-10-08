@@ -5,7 +5,7 @@ const PriceFormat = new Intl.NumberFormat("id-ID", {
     maximumFractionDigits: 0,
 })
 
-import { DatabaseType } from '../types/type'
+import { DatabaseType } from '@santuyapi/types/type'
 
 const parseDb = (dbUrl: string) => {
     dbUrl = dbUrl.replace("mysql://", "")

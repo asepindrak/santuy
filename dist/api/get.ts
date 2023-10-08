@@ -1,5 +1,5 @@
-import Database from '../config/database'
-import { GetType, ResultType } from '../types/type'
+import Database from '@santuyapi/config/database'
+import { GetType, ResultType } from '@santuyapi/types/type'
 
 async function get({ model, paginate }: GetType) {
     const db = new Database()

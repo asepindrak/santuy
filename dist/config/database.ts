@@ -1,7 +1,7 @@
 import { createPool } from "mysql2"
-import { DatabaseType } from "../types/type"
+import { DatabaseType } from "@santuyapi/types/type"
 import 'dotenv/config'
-import { parseDb } from "../utils/util"
+import { parseDb } from "@santuyapi/utils/util"
 
 class Database {
     private host: string
@@ -17,9 +17,8 @@ class Database {
             console.log("set DATABASE_URL in .env file\n\n")
             console.log("example:\n")
             console.log('DATABASE_URL="mysql://root:@localhost:3306/santuy"')
-            return;
         }
-        let database: DatabaseType = parseDb(dbUrl)
+        let database: DatabaseType = parseDb(dbUrl ?? "mysql://root:@localhost:3306/santuy")
         this.host = database.host
         this.user = database.user
         this.password = database.password

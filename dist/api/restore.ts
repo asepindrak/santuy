@@ -1,5 +1,5 @@
-import Database from '../config/database'
-import { RestoreType } from '../types/type'
+import Database from '@santuyapi/config/database'
+import { RestoreType } from '@santuyapi/types/type'
 
 async function restore({ model, id }: RestoreType) {
     const db = new Database()

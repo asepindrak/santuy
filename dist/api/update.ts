@@ -1,5 +1,5 @@
-import Database from '../config/database'
-import { UpdateType } from '../types/type'
+import Database from '@santuyapi/config/database'
+import { UpdateType } from '@santuyapi/types/type'
 
 async function update({ model, data, id }: UpdateType) {
     const db = new Database()
