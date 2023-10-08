@@ -2,9 +2,9 @@ import Database from './database.mjs'
 import { promises as fs } from 'fs'
 import path from 'path'
 
-async function seedData(database, seed) {
-    const db = new Database(database)
-    if (!seed || !database || !db) {
+async function seedData(seed) {
+    const db = new Database()
+    if (!seed || !db) {
         console.log(`Seeding ${args[1]} error!\n`)
         process.exit(0)
     }

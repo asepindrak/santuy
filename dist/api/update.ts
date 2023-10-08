@@ -1,8 +1,8 @@
 import Database from '../config/database'
 import { UpdateType } from '../types/type'
 
-async function update({ model, database, data, id }: UpdateType) {
-    const db = new Database(database)
+async function update({ model, data, id }: UpdateType) {
+    const db = new Database()
     if (!model || !id || !data) {
         return false
     }

@@ -1,8 +1,7 @@
-import Database from '../config/database'
-import { TransactionType } from '../types/type'
+import Database from '../config/database.js'
 
-async function commit({ database }: TransactionType) {
-    const db = new Database(database)
+async function commit() {
+    const db = new Database()
     await db.executeQuery("COMMIT")
 }
 

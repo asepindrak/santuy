@@ -1,8 +1,8 @@
 import Database from '../config/database'
 import { CreateType } from '../types/type'
 
-async function create({ model, database, data }: CreateType) {
-    const db = new Database(database)
+async function create({ model, data }: CreateType) {
+    const db = new Database()
     if (!data || !model) {
         return false
     }

@@ -1,11 +1,11 @@
 import Database from '../config/database'
 import { RawType } from '../types/type'
 
-async function raw({ database, query, params = [] }: RawType) {
+async function raw({ query, params = [] }: RawType) {
     if (!query) {
         return false
     }
-    const db = new Database(database)
+    const db = new Database()
     if (!query) {
         return false
     }

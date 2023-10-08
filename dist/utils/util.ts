@@ -7,7 +7,7 @@ const PriceFormat = new Intl.NumberFormat("id-ID", {
 
 import { DatabaseType } from '../types/type'
 
-const database = (dbUrl: string) => {
+const parseDb = (dbUrl: string) => {
     dbUrl = dbUrl.replace("mysql://", "")
     dbUrl = dbUrl.replace("@", ":")
     let dbArr = dbUrl.split(":")
@@ -28,4 +28,4 @@ const database = (dbUrl: string) => {
     return database
 }
 
-export { PriceFormat, database }
+export { PriceFormat, parseDb }

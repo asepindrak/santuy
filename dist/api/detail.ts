@@ -1,8 +1,8 @@
 import Database from '../config/database'
-import { DetailType, GetType, ResultType } from '../types/type'
+import { DetailType } from '../types/type'
 
-async function detail({ model, database, id }: DetailType) {
-    const db = new Database(database)
+async function detail({ model, id }: DetailType) {
+    const db = new Database()
     if (!model || !id) {
         return false
     }

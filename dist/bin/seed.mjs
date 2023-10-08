@@ -19,16 +19,7 @@ async function seedCLI(args) {
             console.log(`npx santuy generate seed ${seed}`)
             process.exit(0)
         }
-        let dbUrl = process.env.DATABASE_URL
-        if (!dbUrl) {
-            console.error('No DATABASE_URL set\n\n')
-            console.log("set DATABASE_URL in .env file\n\n")
-            console.log("example:\n")
-            console.log('DATABASE_URL="mysql://root:@localhost:3306/santuy"')
-            process.exit(0)
-        }
-        let database = parseDb(dbUrl)
-        seedData(database, seed)
+        seedData(seed)
     } else {
         help()
     }

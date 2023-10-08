@@ -1,5 +1,6 @@
 import { createPool } from "mysql2"
-
+import parseDb from './parse-db-url.mjs'
+import 'dotenv/config'
 class Database {
     host
     user
@@ -7,12 +8,21 @@ class Database {
     port
     database
     pool
-    constructor({ host, user, password, port, database }) {
-        this.host = host
-        this.user = user
-        this.password = password
-        this.port = port
-        this.database = database
+    constructor() {
+        let dbUrl = process.env.DATABASE_URL
+        if (!dbUrl) {
+            console.error('No DATABASE_URL set\n\n')
+            console.log("set DATABASE_URL in .env file\n\n")
+            console.log("example:\n")
+            console.log('DATABASE_URL="mysql://root:@localhost:3306/santuy"')
+            return
+        }
+        let database = parseDb(dbUrl)
+        this.host = database.host
+        this.user = database.user
+        this.password = database.password
+        this.port = database.port
+        this.database = database.database
         this.pool = createPool({
             host: this.host,
             user: this.user,

@@ -1,8 +1,7 @@
 import Database from '../config/database'
-import { TransactionType } from '../types/type'
 
-async function rollback({ database }: TransactionType) {
-    const db = new Database(database)
+async function rollback() {
+    const db = new Database()
     await db.executeQuery("ROLLBACK")
 }
 

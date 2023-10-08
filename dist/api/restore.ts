@@ -1,8 +1,8 @@
 import Database from '../config/database'
 import { RestoreType } from '../types/type'
 
-async function restore({ model, database, id }: RestoreType) {
-    const db = new Database(database)
+async function restore({ model, id }: RestoreType) {
+    const db = new Database()
     if (!id || !model) {
         return false
     }

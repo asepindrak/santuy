@@ -36,60 +36,47 @@ export interface RelationType {
 
 export interface MigrateType {
     models: any;
-    database: DatabaseType;
 }
 
 export interface SeedType {
     model: ModelType;
     path: string;
-    database: DatabaseType;
 }
 
 export interface GetType {
     model: ModelType;
-    database: DatabaseType;
     paginate?: PaginateType | null;
 }
 
 export interface DetailType {
     model: ModelType;
-    database: DatabaseType;
     id: number | string;
 }
 
 export interface CreateType {
     model: ModelType;
-    database: DatabaseType;
     data: any;
 }
 
 export interface UpdateType {
     model: ModelType;
-    database: DatabaseType;
     data: any;
     id: number | string;
 }
 
 export interface RemoveType {
     model: ModelType;
-    database: DatabaseType;
     id: number | string;
 }
 
 export interface RestoreType {
     model: ModelType;
-    database: DatabaseType;
     id: number | string;
 }
 
 export interface RawType {
-    database: DatabaseType;
     query: string,
     params?: Array<string | number>
-}
-
-export interface TransactionType {
-    database: DatabaseType;
 }
 
 export interface PaginateType {

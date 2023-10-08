@@ -1,8 +1,8 @@
 import Database from '../config/database'
 import { GetType, ResultType } from '../types/type'
 
-async function get({ model, database, paginate }: GetType) {
-    const db = new Database(database)
+async function get({ model, paginate }: GetType) {
+    const db = new Database()
     if (!model) {
         return false
     }

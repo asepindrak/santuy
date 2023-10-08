@@ -1,8 +1,8 @@
 import Database from '../config/database'
 import { RemoveType } from '../types/type'
 
-async function remove({ model, database, id }: RemoveType) {
-    const db = new Database(database)
+async function remove({ model, id }: RemoveType) {
+    const db = new Database()
     if (!id || !model) {
         return false
     }

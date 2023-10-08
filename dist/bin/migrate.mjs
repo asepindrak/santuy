@@ -8,15 +8,6 @@ import parseDb from './parse-db-url.mjs'
 const migrateCLI = async () => {
     console.log("DATABASE MIGRATION & SYNC\n")
     console.log(`--------------------------------------\n\n`)
-    let dbUrl = process.env.DATABASE_URL
-    if (!dbUrl) {
-        console.error('No DATABASE_URL set\n\n')
-        console.log("set DATABASE_URL in .env file\n\n")
-        console.log("example:\n")
-        console.log('DATABASE_URL="mysql://root:@localhost:3306/santuy"')
-        process.exit(0)
-    }
-    let database = parseDb(dbUrl)
 
     var dirname = path.dirname("santuy/models")
     if (!fs.existsSync(`${dirname}/schema.mjs`)) {
@@ -30,10 +21,10 @@ const migrateCLI = async () => {
     let SANTUY_ENV = process.env.SANTUY_ENV
     if (SANTUY_ENV == "development") {
         const { models } = await import(`../../santuy/schema.mjs`)
-        migrateData(database, models)
+        migrateData(models)
     } else {
         const { models } = await import(`../../../../santuy/schema.mjs`)
-        migrateData(database, models)
+        migrateData(models)
     }
 
 }
