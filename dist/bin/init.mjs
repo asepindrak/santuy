@@ -19,17 +19,24 @@ function ensureDirectoryExistence() {
     var santuyDir = path.dirname("santuy/models")
     if (!fs.existsSync(santuyDir)) {
         fs.mkdirSync(santuyDir)
+    } else {
+        return true
     }
 
     var modelsDir = path.dirname("santuy/models/models")
     if (!fs.existsSync(modelsDir)) {
         fs.mkdirSync(modelsDir)
+    } else {
+        return true
     }
 
     var seedsDir = path.dirname("santuy/seeds/seeds")
     if (!fs.existsSync(seedsDir)) {
         fs.mkdirSync(seedsDir)
+    } else {
+        return true
     }
+    return false
 }
 
 const models = `
