@@ -1,4 +1,4 @@
-import Database from '../config/database.js'
+import Database from '../config/database'
 import { RawType } from '../types/type'
 
 async function raw({ database, query, params = [] }: RawType) {

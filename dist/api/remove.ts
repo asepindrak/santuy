@@ -1,4 +1,4 @@
-import Database from '../config/database.js'
+import Database from '../config/database'
 import { RemoveType } from '../types/type'
 
 async function remove({ model, database, id }: RemoveType) {

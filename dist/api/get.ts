@@ -1,4 +1,4 @@
-import Database from '../config/database.js'
+import Database from '../config/database'
 import { GetType, ResultType } from '../types/type'
 
 async function get({ model, database, paginate }: GetType) {

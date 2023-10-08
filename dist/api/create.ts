@@ -1,4 +1,4 @@
-import Database from '../config/database.js'
+import Database from '../config/database'
 import { CreateType } from '../types/type'
 
 async function create({ model, database, data }: CreateType) {

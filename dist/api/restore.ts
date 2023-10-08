@@ -1,4 +1,4 @@
-import Database from '../config/database.js'
+import Database from '../config/database'
 import { RestoreType } from '../types/type'
 
 async function restore({ model, database, id }: RestoreType) {

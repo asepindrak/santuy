@@ -1,4 +1,4 @@
-import Database from '../config/database.js'
+import Database from '../config/database'
 import { TransactionType } from '../types/type'
 
 async function rollback({ database }: TransactionType) {
