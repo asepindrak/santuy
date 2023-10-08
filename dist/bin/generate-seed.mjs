@@ -1,9 +1,6 @@
 import fs from 'fs'
 import path from 'path'
 import 'dotenv/config'
-import { readFile } from 'fs/promises'
-
-
 
 async function generateSeed(args) {
     if (args[2]) {

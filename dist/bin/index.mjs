@@ -1,5 +1,6 @@
 #! /usr/bin/env node
 import { readFile } from 'fs/promises'
+
 const packageJson = JSON.parse(
     await readFile(
         new URL('../../package.json', import.meta.url)
@@ -11,7 +12,6 @@ import { generateCLI } from './generate.mjs'
 import { seedCLI } from './seed.mjs'
 import { help, santuyLog } from './help.mjs'
 console.log(`\n`)
-
 
 const args = process.argv.slice(2)
 if (args.length < 1) {

@@ -1,6 +1,7 @@
 import { createPool } from "mysql2"
 import parseDb from './parse-db-url.mjs'
 import 'dotenv/config'
+
 class Database {
     host
     user

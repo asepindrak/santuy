@@ -1,9 +1,11 @@
 import { readFile } from 'fs/promises'
+
 const packageJson = JSON.parse(
     await readFile(
         new URL('../../package.json', import.meta.url)
     )
 )
+
 function help() {
     const command = [
         ["init", "Generate santuy directory"],

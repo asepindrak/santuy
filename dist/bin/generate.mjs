@@ -15,6 +15,4 @@ const generateCLI = async (args) => {
     }
 }
 
-
-
 export { generateCLI }

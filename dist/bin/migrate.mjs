@@ -3,7 +3,6 @@ import path from 'path'
 import 'dotenv/config'
 import fs from 'fs'
 import { migrateData } from './migrate-data.mjs'
-import parseDb from './parse-db-url.mjs'
 
 const migrateCLI = async () => {
     console.log("DATABASE MIGRATION & SYNC\n")
@@ -28,6 +27,5 @@ const migrateCLI = async () => {
     }
 
 }
-
 
 export { migrateCLI }

@@ -44,7 +44,6 @@ async function migrateData(models) {
         await db.executeQuery(query)
     }
 
-
     await db.executeQuery("COMMIT")
     console.log("\n")
     console.log(`--------------------------------------\n\n`)

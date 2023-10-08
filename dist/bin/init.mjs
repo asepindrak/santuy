@@ -41,8 +41,6 @@ const models = {
 export { models }
 `
 
-
-
 async function createModel() {
     var dirname = path.dirname("santuy/models")
 
