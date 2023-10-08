@@ -35,8 +35,8 @@ generate "Generate model or seed"
 
 
 ```sql
--- create database santuy
-CREATE DATABASE `santuy`;
+-- create database
+CREATE DATABASE `database_name`;
 
 ```
 
@@ -209,7 +209,7 @@ export default ProductsModel
 
 ### .env file
 ```
-DATABASE_URL="mysql://root:@localhost:3306/santuy"
+DATABASE_URL="mysql://root:@localhost:3306/database_name"
 ```
 
 ### Database Migration & Sync
