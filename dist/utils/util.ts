@@ -5,4 +5,27 @@ const PriceFormat = new Intl.NumberFormat("id-ID", {
     maximumFractionDigits: 0,
 })
 
-export { PriceFormat }
+import { DatabaseType } from '../types/type'
+
+const parseDbUrl = (dbUrl: string) => {
+    dbUrl = dbUrl.replace("mysql://", "")
+    dbUrl = dbUrl.replace("@", ":")
+    let dbArr = dbUrl.split(":")
+    let user = dbArr[0]
+    let password = dbArr[1]
+    let host = dbArr[2]
+    let portdb = dbArr[3]
+    let portdbArr = portdb.split("/")
+    let port = parseInt(portdbArr[0])
+    let db = portdbArr[1]
+    let database: DatabaseType = {
+        user,
+        password,
+        host,
+        port,
+        database: db
+    }
+    return database
+}
+
+export { PriceFormat, parseDbUrl }

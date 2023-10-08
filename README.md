@@ -249,6 +249,21 @@ npx santuy seed users
 
 ### API SETUP FOR NEXTJS
 
+#### modify tsconfig.js
+```json
+{
+  "compilerOptions": {
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ],
+      "@santuy/*": [ //add this
+        "./santuy/*"
+      ]
+    }
+  }
+}
+```
 ### Get Data
 
 ```ts
@@ -258,11 +273,13 @@ npx santuy seed users
 import { database } from '@/config/db';
 import { NextResponse } from 'next/server';
 import { NextRequest } from "next/server";
-import { GetType, get } from 'santuy';
+import { GetType, get, ModelType } from 'santuy';
+import { models } from '@santuy/schema.mjs'
 
 export async function GET(request: NextRequest) {
-
-    const model = request.nextUrl.searchParams.get("model") ?? "";
+    const modelName = request.nextUrl.searchParams.get("model") ?? "";
+    const mod: any = models;
+    const model: ModelType = mod[modelName];
     let page: any = request.nextUrl.searchParams.get("page") ?? "0";
     let limit: any = request.nextUrl.searchParams.get("limit") ?? "10";
     page = parseInt(page);
@@ -293,11 +310,14 @@ export async function GET(request: NextRequest) {
 import { database } from '@/config/db';
 import { NextResponse } from 'next/server';
 import { NextRequest } from "next/server";
-import { DetailType, detail } from 'santuy';
+import { DetailType, ModelType, detail } from 'santuy';
+import { models } from '@santuy/schema.mjs'
 
 export async function GET(request: NextRequest) {
 
-    const model = request.nextUrl.searchParams.get("model") ?? "";
+    const modelName = request.nextUrl.searchParams.get("model") ?? "";
+    const mod: any = models;
+    const model: ModelType = mod[modelName];
     let id: any = request.nextUrl.searchParams.get("id");
     let detailData: DetailType = {
         model,
@@ -320,10 +340,13 @@ export async function GET(request: NextRequest) {
 import { database } from '@/config/db';
 import { NextResponse } from 'next/server';
 import { NextRequest } from "next/server";
-import { CreateType, create } from 'santuy';
+import { CreateType, ModelType, create } from 'santuy';
+import { models } from '@santuy/schema.mjs'
 
 export async function POST(request: NextRequest) {
-    const model = request.nextUrl.searchParams.get("model") ?? "";
+    const modelName = request.nextUrl.searchParams.get("model") ?? "";
+    const mod: any = models;
+    const model: ModelType = mod[modelName];
     const data = await request.json();
     let createData: CreateType = {
         model,
@@ -346,11 +369,14 @@ export async function POST(request: NextRequest) {
 import { database } from '@/config/db';
 import { NextResponse } from 'next/server';
 import { NextRequest } from "next/server";
-import { UpdateType, update } from 'santuy';
+import { ModelType, UpdateType, update } from 'santuy';
+import { models } from '@santuy/schema.mjs'
 
 export async function PUT(request: NextRequest) {
 
-    const model = request.nextUrl.searchParams.get("model") ?? "";
+    const modelName = request.nextUrl.searchParams.get("model") ?? "";
+    const mod: any = models;
+    const model: ModelType = mod[modelName];
     const id = request.nextUrl.searchParams.get("id") ?? "";
     const data = await request.json();
 
@@ -376,11 +402,14 @@ export async function PUT(request: NextRequest) {
 import { database } from '@/config/db';
 import { NextResponse } from 'next/server';
 import { NextRequest } from "next/server";
-import { RemoveType, remove } from 'santuy';
+import { ModelType, RemoveType, remove } from 'santuy';
+import { models } from '@santuy/schema.mjs'
 
 export async function DELETE(request: NextRequest) {
 
-    const model = request.nextUrl.searchParams.get("model") ?? "";
+    const modelName = request.nextUrl.searchParams.get("model") ?? "";
+    const mod: any = models;
+    const model: ModelType = mod[modelName];
     const id = request.nextUrl.searchParams.get("id") ?? "";
 
     let removeData: RemoveType = {
@@ -404,11 +433,14 @@ export async function DELETE(request: NextRequest) {
 import { database } from '@/config/db';
 import { NextResponse } from 'next/server';
 import { NextRequest } from "next/server";
-import { RestoreType, restore } from 'santuy';
+import { ModelType, RestoreType, restore } from 'santuy';
+import { models } from '@santuy/schema.mjs'
 
 export async function PUT(request: NextRequest) {
 
-    const model = request.nextUrl.searchParams.get("model") ?? "";
+    const modelName = request.nextUrl.searchParams.get("model") ?? "";
+    const mod: any = models;
+    const model: ModelType = mod[modelName];
     const id = request.nextUrl.searchParams.get("id") ?? "";
 
     let restoreData: RestoreType = {
