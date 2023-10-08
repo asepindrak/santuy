@@ -46,8 +46,8 @@ export { models }
 async function createModel() {
     var dirname = path.dirname("santuy/models")
 
-    fs.writeFileSync(`${dirname}/schema.js`, models, 'utf-8')
-    console.log(`${dirname}/schema.js`)
+    fs.writeFileSync(`${dirname}/schema.mjs`, models, 'utf-8')
+    console.log(`${dirname}/schema.mjs`)
 
 }
 

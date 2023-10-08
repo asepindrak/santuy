@@ -29,10 +29,10 @@ async function generateSeed(args) {
 }
 
 async function generateSeedfile(seed) {
-    let modelFile = `../../../../santuy/models/${seed}.js`
+    let modelFile = `../../../../santuy/models/${seed}.mjs`
     let SANTUY_ENV = process.env.SANTUY_ENV
     if (SANTUY_ENV == "development") {
-        modelFile = `../../santuy/models/${seed}.js`
+        modelFile = `../../santuy/models/${seed}.mjs`
     }
 
     const modelObj = await import(modelFile)

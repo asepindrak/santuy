@@ -12,18 +12,18 @@ async function generateModel(args) {
         console.log(`Generating model ${args[2]}\n`)
         let model = args[2]
         var dirname = path.dirname("santuy/models")
-        if (fs.existsSync(`${dirname}/models/${model}.js`)) {
+        if (fs.existsSync(`${dirname}/models/${model}.mjs`)) {
             console.error(`error: Model ${args[2]} exists!\n`)
             process.exit(0)
         }
-        fs.writeFileSync(`${dirname}/models/${model}.js`, generateModelfile(model), 'utf-8')
+        fs.writeFileSync(`${dirname}/models/${model}.mjs`, generateModelfile(model), 'utf-8')
         generateModelsfile(model).then((data) => {
-            fs.writeFileSync(`${dirname}/schema.js`, data, 'utf-8')
+            fs.writeFileSync(`${dirname}/schema.mjs`, data, 'utf-8')
         })
 
 
-        console.log(`${dirname}/models/${model}.js`)
-        console.log(`${dirname}/schema.js`)
+        console.log(`${dirname}/models/${model}.mjs`)
+        console.log(`${dirname}/schema.mjs`)
         console.log(`Model ${args[2]} has been generated!\n`)
     } else {
         help()
@@ -55,10 +55,10 @@ function generateModelfile(model) {
 }
 
 async function generateModelsfile(model) {
-    let jsFile = "../../../../santuy/schema.js"
+    let jsFile = "../../../../santuy/schema.mjs"
     let SANTUY_ENV = process.env.SANTUY_ENV
     if (SANTUY_ENV == "development") {
-        jsFile = "../../santuy/schema.js"
+        jsFile = "../../santuy/schema.mjs"
     }
     const { models } = await import(jsFile)
     const capModel = capitalizeFirstLetter(model)
@@ -67,12 +67,12 @@ async function generateModelsfile(model) {
     let allModelsStr = ""
     for (const item of allModels) {
         let capItem = capitalizeFirstLetter(item)
-        importModels += `import ${capItem}Model from "./models/${item}.js" \n`
+        importModels += `import ${capItem}Model from "./models/${item}.mjs" \n`
         allModelsStr += `
         ${item}:${capItem}Model,
         `
     }
-    importModels += `import ${capModel}Model from "./models/${model}.js" \n`
+    importModels += `import ${capModel}Model from "./models/${model}.mjs" \n`
     allModelsStr += `
         ${model}:${capModel}Model,
         `

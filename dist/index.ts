@@ -1,5 +1,5 @@
 export * from './types/type'
-export * from './config/database.js'
+export * from './config/database'
 
 export * from './api/commit'
 export * from './api/create'

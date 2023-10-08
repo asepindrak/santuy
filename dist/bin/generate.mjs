@@ -1,6 +1,6 @@
-import { generateModel } from './generate-model.js'
-import { generateSeed } from './generate-seed.js'
-import { help } from './help.js'
+import { generateModel } from './generate-model.mjs'
+import { generateSeed } from './generate-seed.mjs'
+import { help } from './help.mjs'
 
 const generateCLI = async (args) => {
     switch (args[1]) {

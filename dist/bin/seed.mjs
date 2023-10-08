@@ -1,8 +1,8 @@
 import fs from 'fs'
 import path from 'path'
 import 'dotenv/config'
-import { seedData } from './seed-data.js'
-import parseDb from './parse-db-url.js'
+import { seedData } from './seed-data.mjs'
+import parseDb from './parse-db-url.mjs'
 
 
 

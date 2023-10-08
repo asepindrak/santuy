@@ -55,10 +55,10 @@ npx santuy generate model [model_name]
 ```bash
 npx santuy generate model users
 ```
-#### users.js:
+#### users.mjs:
 
 ```js
-//model users (file: santuy/models/users.js)
+//model users (file: santuy/models/users.mjs)
 
 const UsersModel = {
     name: 'users',
@@ -111,9 +111,9 @@ export default UsersModel
 ```bash
 npx santuy generate model categories
 ```
-#### categories.js:
+#### categories.mjs:
 ```js
-//model categories (file: santuy/models/categories.js)
+//model categories (file: santuy/models/categories.mjs)
 const CategoriesModel = {
     name: 'categories',
     icon: 'AiOutlineFileAdd',
@@ -139,9 +139,9 @@ export default CategoriesModel
 ```bash
 npx santuy generate model products
 ```
-#### products.js:
+#### products.mjs:
 ```js
-//model products (file: santuy/models/products.js)
+//model products (file: santuy/models/products.mjs)
 const ProductsModel = {
     name: 'products',
     icon: 'AiOutlineFileAdd',

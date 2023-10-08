@@ -5,11 +5,11 @@ const packageJson = JSON.parse(
         new URL('../../package.json', import.meta.url)
     )
 )
-import { initCLI } from './init.js'
-import { migrateCLI } from './migrate.js'
-import { generateCLI } from './generate.js'
-import { seedCLI } from './seed.js'
-import { help, santuyLog } from './help.js'
+import { initCLI } from './init.mjs'
+import { migrateCLI } from './migrate.mjs'
+import { generateCLI } from './generate.mjs'
+import { seedCLI } from './seed.mjs'
+import { help, santuyLog } from './help.mjs'
 console.log(`\n`)
 
 

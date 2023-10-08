@@ -1,4 +1,4 @@
-import Database from './database.js'
+import Database from './database.mjs'
 import { promises as fs } from 'fs'
 import path from 'path'
 

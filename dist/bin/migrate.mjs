@@ -2,8 +2,8 @@
 import path from 'path'
 import 'dotenv/config'
 import fs from 'fs'
-import { migrateData } from './migrate-data.js'
-import parseDb from './parse-db-url.js'
+import { migrateData } from './migrate-data.mjs'
+import parseDb from './parse-db-url.mjs'
 
 const migrateCLI = async () => {
     console.log("DATABASE MIGRATION & SYNC\n")
@@ -19,7 +19,7 @@ const migrateCLI = async () => {
     let database = parseDb(dbUrl)
 
     var dirname = path.dirname("santuy/models")
-    if (!fs.existsSync(`${dirname}/schema.js`)) {
+    if (!fs.existsSync(`${dirname}/schema.mjs`)) {
         //schema not exists
         console.error('Schema not exist\n\n')
         console.log("init santuy first\n\n")
@@ -29,10 +29,10 @@ const migrateCLI = async () => {
     }
     let SANTUY_ENV = process.env.SANTUY_ENV
     if (SANTUY_ENV == "development") {
-        const { models } = await import(`../../santuy/schema.js`)
+        const { models } = await import(`../../santuy/schema.mjs`)
         migrateData(database, models)
     } else {
-        const { models } = await import(`../../../../santuy/schema.js`)
+        const { models } = await import(`../../../../santuy/schema.mjs`)
         migrateData(database, models)
     }
 
