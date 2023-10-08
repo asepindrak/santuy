@@ -42,7 +42,7 @@ const migrateCLI = async () => {
         console.log('npx santuy init')
         process.exit(0)
     }
-    const { models } = await import(`../../santuy/schema.mjs`);
+    const { models } = await import(`../../../../santuy/schema.mjs`);
     migrateData(db, models)
 }
 

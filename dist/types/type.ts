@@ -19,13 +19,19 @@ export interface ColumnType {
     dataType?: string;
     inputType?: InputType;
     selectData?: string | Array<string>;
-    relation?: string;
+    relation?: RelationType;
 }
 
 type InputType = 'text' | 'number' | 'password' | 'email' | 'select' | 'textarea' | 'file' | 'image' | 'hidden' | 'checkbox';
 export interface IncludeType {
     model: ModelType;
     relation: string;
+}
+
+export interface RelationType {
+    field: string;
+    reference: string;
+    select: string;
 }
 
 export interface MigrateType {

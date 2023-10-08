@@ -12,13 +12,18 @@ Santuy is a nextjs framework and SQL for auto generate data from model
 - Built-in async validation support
 - Relation & include support
 - Built-in Database Transaction support (automatic rollback if query fails)
+- Built-in CRUD
 - Built-in pagination
-- Built-in component & utils (under development)
-- Extensible: add your own component and query
+- Built-in component & utils
+- Raw query support
 
 ## Getting Started
 
 ### Installation
+
+```
+npx santuy init
+```
 
 ```ts
 //create database santuy
@@ -28,24 +33,7 @@ CREATE DATABASE `santuy`;
 ### Models Example
 
 ```ts
-//model (models/models.ts)
-import { ProductModel } from "./product-model";
-import { UserModel } from "./user-model";
-import { CategoryModel } from "./category-model";
-
-//define all models
-const models: any = {
-    'categories': CategoryModel,
-    'products': ProductModel,
-    'users': UserModel,
-}
-
-
-export { models }
-```
-
-```ts
-//model users (file: models/user-model.ts)
+//model users (file: santuy/models/user-model.ts)
 const UserModel = {
     name: 'users',
     icon: 'AiOutlineUser',
@@ -94,7 +82,7 @@ export { UserModel }
 ```
 
 ```ts
-//model categories (file: models/category-model.ts)
+//model categories (file: santuy/models/category-model.ts)
 const CategoryModel = {
     name: 'categories',
     icon: 'AiOutlineFileAdd',
@@ -118,7 +106,7 @@ export { CategoryModel }
 ```
 
 ```ts
-//model products (file: models/product-model.ts)
+//model products (file: santuy/models/product-model.ts)
 const ProductModel = {
     name: 'products',
     icon: 'AiOutlineFileAdd',
@@ -135,7 +123,11 @@ const ProductModel = {
             dataType: 'INT NULL',
             inputType: 'select',
             selectData: "categories",
-            relation: 'categories.id'
+            relation: {
+                field: 'categoryId',
+                reference: 'categories.id',
+                select: 'categories.name'
+            },
         },
         {
             name: 'name',
@@ -173,12 +165,6 @@ const ProductModel = {
             dataType: 'INT NULL',
             inputType: 'number',
         },
-    ],
-    includes: [
-        {
-            model: 'categories',
-            relation: 'categoryId'
-        }
     ]
 };
 
