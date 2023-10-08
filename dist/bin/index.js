@@ -1,8 +1,8 @@
 #! /usr/bin/env node
 import packageJson from '../../package.json' assert {type: "json"}
-import { initCLI } from './init.mjs'
-import { migrateCLI } from './migrate.mjs'
-import { seedCLI } from './seed.mjs'
+import { initCLI } from './init.js'
+import { migrateCLI } from './migrate.js'
+import { seedCLI } from './seed.js'
 console.log(`\n`)
 console.log(`            Santuy ${packageJson.version}          \n`)
 console.log(`--------------------------------------\n`)

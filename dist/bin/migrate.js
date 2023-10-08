@@ -2,7 +2,7 @@
 import path from 'path'
 import 'dotenv/config'
 import fs from 'fs'
-import { migrateData } from './migrate-data.mjs'
+import { migrateData } from './migrate-data.js'
 
 const migrateCLI = async () => {
     console.log("MIGRATION\n")
@@ -34,7 +34,7 @@ const migrateCLI = async () => {
         database
     }
     var dirname = path.dirname("santuy/models");
-    if (!fs.existsSync(`${dirname}/schema.mjs`)) {
+    if (!fs.existsSync(`${dirname}/schema.js`)) {
         //schema not exists
         console.error('Schema not exist\n\n')
         console.log("init santuy first\n\n")
@@ -42,8 +42,15 @@ const migrateCLI = async () => {
         console.log('npx santuy init')
         process.exit(0)
     }
-    const { models } = await import(`../../../../santuy/schema.mjs`);
-    migrateData(db, models)
+    let SANTUY_ENV = process.env.SANTUY_ENV
+    if (SANTUY_ENV == "development") {
+        const { models } = await import(`../../santuy/schema.js`);
+        migrateData(db, models)
+    } else {
+        const { models } = await import(`../../../../santuy/schema.js`);
+        migrateData(db, models)
+    }
+
 }
 
 

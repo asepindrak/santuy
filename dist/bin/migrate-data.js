@@ -1,4 +1,4 @@
-import Database from './database.mjs'
+import Database from './database.js'
 
 async function migrateData(database, models) {
     if (!models) {
@@ -24,7 +24,7 @@ async function migrateData(database, models) {
         query += " )  ENGINE=INNODB"
 
         //check if table exist
-        const checkTable = await db.executeQuery("SELECT COUNT(TABLE_NAME) as count FROM  information_schema.TABLES  WHERE  TABLE_SCHEMA LIKE '" + database + "' AND  TABLE_TYPE LIKE 'BASE TABLE' AND TABLE_NAME = '" + model.name + "'")
+        const checkTable = await db.executeQuery("SELECT COUNT(TABLE_NAME) as count FROM  information_schema.TABLES  WHERE  TABLE_SCHEMA LIKE '" + database.database + "' AND  TABLE_TYPE LIKE 'BASE TABLE' AND TABLE_NAME = '" + model.name + "'")
         if (checkTable.length) {
             const countTable = checkTable[0].count
             if (countTable) {

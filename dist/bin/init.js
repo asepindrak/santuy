@@ -27,7 +27,7 @@ function ensureDirectoryExistence() {
 }
 
 const models = `
-import { UserModel } from "./models/user-model.mjs";
+import { UserModel } from "./models/user-model.js";
 
 //define all models
 const models = {
@@ -88,11 +88,11 @@ export { UserModel }
 async function createModel() {
     var dirname = path.dirname("santuy/models");
 
-    fs.writeFileSync(`${dirname}/schema.mjs`, models, 'utf-8')
-    console.log(`${dirname}/schema.mjs`)
+    fs.writeFileSync(`${dirname}/schema.js`, models, 'utf-8')
+    console.log(`${dirname}/schema.js`)
 
-    fs.writeFileSync(`${dirname}/models/user-model.mjs`, userModel, 'utf-8')
-    console.log(`${dirname}/models/user-model.mjs`)
+    fs.writeFileSync(`${dirname}/models/user-model.js`, userModel, 'utf-8')
+    console.log(`${dirname}/models/user-model.js`)
 }
 
 export { initCLI }

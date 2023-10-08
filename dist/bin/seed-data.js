@@ -1,4 +1,4 @@
-import Database from './database.mjs'
+import Database from './database.js'
 import { promises as fs } from 'fs'
 
 async function seed(database, model) {
