@@ -6,7 +6,7 @@ Santuy is a nextjs framework and SQL for auto generate data from model
 
 **Features**:
 
-- Migrate database from model schema (automatic truncate table)
+- Migrate database from model schema (automatic sync table)
 - DB Seed support
 - Powerful TypeScript support
 - Built-in async validation support
@@ -19,22 +19,48 @@ Santuy is a nextjs framework and SQL for auto generate data from model
 
 ## Getting Started
 
+```bash
+npm i santuy
+```
+
+### Santuy Commands
+```bash
+init "Generate santuy directory"
+migrate "Database migration & sync"
+seed "Database seeder"
+generate "Generate model or seed"
+```
+
 ### Installation
 
-```
-npx santuy init
-```
 
-```ts
-//create database santuy
+```sql
+-- create database santuy
 CREATE DATABASE `santuy`;
 
 ```
+
+```bash
+npx santuy init
+```
+
+### Generate Model
+
+```bash
+npx santuy generate model [model_name]
+```
+
 ### Models Example
 
-```ts
-//model users (file: santuy/models/user-model.ts)
-const UserModel = {
+```bash
+npx santuy generate model users
+```
+#### users.js:
+
+```js
+//model users (file: santuy/models/users.js)
+
+const UsersModel = {
     name: 'users',
     icon: 'AiOutlineUser',
     columns: [
@@ -47,13 +73,13 @@ const UserModel = {
         {
             name: 'username',
             title: 'Username',
-            dataType: 'VARCHAR(100) NULL',
+            dataType: 'VARCHAR(30) NULL',
             inputType: 'text',
         },
         {
             name: 'password',
             title: 'Password',
-            dataType: 'VARCHAR(255) NULL',
+            dataType: 'VARCHAR(100) NULL',
             inputType: 'password',
         },
         {
@@ -65,25 +91,30 @@ const UserModel = {
         {
             name: 'avatar',
             title: 'Avatar',
-            dataType: 'VARCHAR(100) NULL',
+            dataType: 'TEXT NULL',
             inputType: 'image',
         },
         {
             name: 'address',
             title: 'Address',
-            dataType: 'VARCHAR(100) NULL',
+            dataType: 'TEXT NULL',
             inputType: 'textarea',
         },
     ],
 };
 
 
-export { UserModel }
+export default UsersModel
+
 ```
 
-```ts
-//model categories (file: santuy/models/category-model.ts)
-const CategoryModel = {
+```bash
+npx santuy generate model categories
+```
+#### categories.js:
+```js
+//model categories (file: santuy/models/categories.js)
+const CategoriesModel = {
     name: 'categories',
     icon: 'AiOutlineFileAdd',
     columns: [
@@ -96,18 +127,22 @@ const CategoryModel = {
         {
             name: 'name',
             title: 'Category Name',
-            dataType: 'VARCHAR(100) NULL',
+            dataType: 'VARCHAR(30) NULL',
             inputType: 'text',
         },
     ],
 };
 
-export { CategoryModel }
+export default CategoriesModel
 ```
 
-```ts
-//model products (file: santuy/models/product-model.ts)
-const ProductModel = {
+```bash
+npx santuy generate model products
+```
+#### products.js:
+```js
+//model products (file: santuy/models/products.js)
+const ProductsModel = {
     name: 'products',
     icon: 'AiOutlineFileAdd',
     columns: [
@@ -132,7 +167,7 @@ const ProductModel = {
         {
             name: 'name',
             title: 'Item Name',
-            dataType: 'VARCHAR(100) NULL',
+            dataType: 'VARCHAR(50) NULL',
             inputType: 'text',
         },
         {
@@ -168,78 +203,51 @@ const ProductModel = {
     ]
 };
 
-export { ProductModel }
+export default ProductsModel
 ```
 
 
-
-
-### Migration
-
-```Santuy CLI DB Migration is under development!```
-
-```ts
-//file: api/migrate/route.ts
-//GET: http://localhost:3000/api/migrate
-import { dev } from '@/config/config';
-import { database } from '@/config/db';
-import { models } from '@/models/models';
-import { NextResponse } from 'next/server';
-import { NextRequest } from "next/server";
-import { migrate, MigrateType } from 'santuy';
-
-export async function GET(request: NextRequest) {
-    if (!dev) {
-        return NextResponse.json("Migration not allowed!", { status: 400 })
-    }
-    const mig: MigrateType = {
-        models,
-        database
-    }
-    const response: any = await migrate(mig);
-    if (!response) {
-        return NextResponse.json("Migration error!", { status: 400 })
-    }
-    return NextResponse.json("Migration successfully", { status: 200 })
-}
+### .env file
+```
+DATABASE_URL="mysql://root:@localhost:3306/santuy"
 ```
 
+### Database Migration & Sync
+```bash
+npx santuy migrate
+```
 
 
 ### Seed
-
-```Santuy CLI DB Seed is under development!```
-
-```ts
-//file: api/seed/route.ts
-//GET: http://localhost:3000/api/seed?model=users
-//GET: http://localhost:3000/api/seed?model=categories
-//GET: http://localhost:3000/api/seed?model=products
-import { NextResponse } from 'next/server';
-import { NextRequest } from "next/server";
-import { seed, SeedType } from 'santuy';
-import path from 'path';
-import { database } from '@/config/db';
-import { dev } from '@/config/config';
-
-export async function GET(request: NextRequest) {
-    if (!dev) {
-        return NextResponse.json("Seed not allowed!", { status: 400 })
-    }
-    const model = request.nextUrl.searchParams.get("model") ?? "";
-    const jsonPath = path.join(process.cwd(), 'src/seeds');
-    const seeder: SeedType = {
-        model,
-        path: jsonPath,
-        database
-    }
-    const response: any = await seed(seeder);
-    if (!response) {
-        return NextResponse.json("Seeding error!", { status: 400 })
-    }
-    return NextResponse.json("Seeding successfully", { status: 200 })
-}
+```bash
+npx santuy generate seed [model_name]
 ```
+### Example Seed
+```bash
+npx santuy generate seed users
+```
+#### users.json
+```json
+//seed users (file: santuy/seeds/users.json)
+[
+    {
+        "username": "admin",
+        "password": "admin123",
+        "name": "Admin",
+        "avatar": "https://ui-avatars.com/api/?name=Admin%20Dashboard",
+        "address": "Jl. Ahmad Yani No. 790"
+    }
+]
+```
+
+#### example seeding users
+```bash
+npx santuy seed users
+```
+
+
+
+### API SETUP FOR NEXTJS
 
 ### Get Data
 
@@ -414,4 +422,114 @@ export async function PUT(request: NextRequest) {
     }
     return NextResponse.json(response, { status: 200 })
 }
+```
+
+### Types
+```ts
+export interface DatabaseType {
+    host: string | 'localhost';
+    user: string | 'root';
+    password: string;
+    port: number | 3306;
+    database: string;
+}
+
+export interface ModelType {
+    name: string;
+    icon?: string;
+    columns: Array<ColumnType>;
+    includes?: Array<IncludeType>;
+}
+
+export interface ColumnType {
+    name: 'id' | string | ModelType;
+    title: string;
+    dataType?: string;
+    inputType?: InputType;
+    selectData?: string | Array<string>;
+    relation?: RelationType;
+}
+
+type InputType = 'text' | 'number' | 'password' | 'email' | 'select' | 'textarea' | 'file' | 'image' | 'hidden' | 'checkbox';
+export interface IncludeType {
+    model: ModelType;
+    relation: string;
+}
+
+export interface RelationType {
+    field: string;
+    reference: string;
+    select: string;
+}
+
+export interface MigrateType {
+    models: any;
+    database: DatabaseType;
+}
+
+export interface SeedType {
+    model: ModelType;
+    path: string;
+    database: DatabaseType;
+}
+
+export interface GetType {
+    model: ModelType;
+    database: DatabaseType;
+    paginate?: PaginateType | null;
+}
+
+export interface DetailType {
+    model: ModelType;
+    database: DatabaseType;
+    id: number | string;
+}
+
+export interface CreateType {
+    model: ModelType;
+    database: DatabaseType;
+    data: any;
+}
+
+export interface UpdateType {
+    model: ModelType;
+    database: DatabaseType;
+    data: any;
+    id: number | string;
+}
+
+export interface RemoveType {
+    model: ModelType;
+    database: DatabaseType;
+    id: number | string;
+}
+
+export interface RestoreType {
+    model: ModelType;
+    database: DatabaseType;
+    id: number | string;
+}
+
+export interface RawType {
+    database: DatabaseType;
+    query: string,
+    params?: Array<string | number>
+}
+
+export interface TransactionType {
+    database: DatabaseType;
+}
+
+export interface PaginateType {
+    page: number;
+    limit: number;
+}
+
+export interface ResultType {
+    data: Array<Object | null> | null | false | undefined;
+    page?: number;
+    limit?: number;
+    total?: number;
+}
+
 ```

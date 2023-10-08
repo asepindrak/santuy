@@ -1,37 +1,45 @@
 #! /usr/bin/env node
-import packageJson from '../../package.json' assert {type: "json"}
+import { readFile } from 'fs/promises'
+const packageJson = JSON.parse(
+    await readFile(
+        new URL('../../package.json', import.meta.url)
+    )
+)
 import { initCLI } from './init.js'
 import { migrateCLI } from './migrate.js'
+import { generateCLI } from './generate.js'
 import { seedCLI } from './seed.js'
+import { help, santuyLog } from './help.js'
 console.log(`\n`)
-console.log(`            Santuy ${packageJson.version}          \n`)
-console.log(`--------------------------------------\n`)
-console.log(`**   coding while lying down   **\n`)
-console.log(`--------------------------------------\n\n`)
-
 
 
 const args = process.argv.slice(2)
 if (args.length < 1) {
-    console.log('npx santuy <command>')
-    console.log('')
-    console.log('Usage:')
-    console.log('')
-    console.log('db migrate: npx santuy migrate path_to/models')
-    console.log('db seed: npx santuy seed path_to/seeds/filename.json')
+    help()
+} else if (args.length < 2 && (args[0] == "--help" || args[0] == "-h")) {
+    help()
+} else if (args.length < 2 && (args[0] == "--version" || args[0] == "-v")) {
+    console.log(`Santuy ${packageJson.version}\n`)
     process.exit(0)
 }
 
 switch (args[0]) {
     case "init":
+        santuyLog()
         initCLI()
         break
     case "migrate":
+        santuyLog()
         migrateCLI()
         break
+    case "generate":
+        santuyLog()
+        generateCLI(args)
+        break
     case "seed":
-        seedCLI()
+        santuyLog()
+        seedCLI(args)
         break
     default:
-        console.log("command error.")
+        help()
 }
