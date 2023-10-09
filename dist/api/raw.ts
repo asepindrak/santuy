@@ -1,5 +1,5 @@
-import Database from '@santuyapi/config/database'
-import { RawType } from '@santuyapi/types/type'
+import Database from "../config/database"
+import { RawType } from '../types/type'
 
 async function raw({ query, params = [] }: RawType) {
     if (!query) {

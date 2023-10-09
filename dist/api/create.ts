@@ -1,5 +1,5 @@
-import Database from "@santuyapi/config/database"
-import { CreateType } from '@santuyapi/types/type'
+import Database from "../config/database"
+import { CreateType } from '../types/type'
 
 async function create({ model, data }: CreateType) {
     const db = new Database()

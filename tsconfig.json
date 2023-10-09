@@ -22,11 +22,6 @@
                 "name": "next"
             }
         ],
-        "paths": {
-            "@santuyapi/*": [
-                "./dist/*"
-            ]
-        }
     },
     "include": [
         "next-env.d.ts",

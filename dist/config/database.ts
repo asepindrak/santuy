@@ -1,7 +1,7 @@
 import { createPool } from "mysql2"
-import { DatabaseType } from "@santuyapi/types/type"
+import { DatabaseType } from "../types/type"
 import 'dotenv/config'
-import { parseDb } from "@santuyapi/utils/util"
+import { parseDb } from "..//utils/util"
 
 class Database {
     private host: string

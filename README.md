@@ -51,9 +51,6 @@ CREATE DATABASE `database_name`;
       "@santuy/*": [
         "./santuy/*"
       ],
-      "@santuyapi/*": [
-        "./node_modules/santuy/dist/*"
-      ]
     }
   }
 }

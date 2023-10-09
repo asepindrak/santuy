@@ -1,4 +1,6 @@
-import Database from "@santuyapi/config/database"
+import Database from "../config/database"
+
+Database
 
 async function commit() {
     const db = new Database()

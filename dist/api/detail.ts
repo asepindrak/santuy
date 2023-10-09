@@ -1,5 +1,5 @@
-import Database from '@santuyapi/config/database'
-import { DetailType } from '@santuyapi/types/type'
+import Database from "../config/database"
+import { DetailType } from '../types/type'
 
 async function detail({ model, id }: DetailType) {
     const db = new Database()

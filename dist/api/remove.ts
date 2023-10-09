@@ -1,5 +1,5 @@
-import Database from '@santuyapi/config/database'
-import { RemoveType } from '@santuyapi/types/type'
+import Database from "../config/database"
+import { RemoveType } from '../types/type'
 
 async function remove({ model, id }: RemoveType) {
     const db = new Database()
