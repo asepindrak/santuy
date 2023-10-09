@@ -7,15 +7,15 @@ Santuy is a nextjs framework and SQL for auto generate data from model
 **Features**:
 
 - Migrate database from model schema (automatic sync table)
-- DB Seed support
-- Powerful TypeScript support
-- Built-in async validation support
-- Relation & include support
+- Database Relation & include support
+- Database Seed support
 - Built-in Database Transaction support (automatic rollback if query fails)
 - Built-in CRUD
-- Built-in pagination
-- Built-in component & utils
 - Raw query support
+- Built-in pagination
+- Powerful TypeScript support
+- Built-in async validation support
+- Built-in component & utils
 
 ## Getting Started
 
@@ -78,7 +78,7 @@ npx santuy generate model users
 
 const UsersModel = {
     name: 'users',
-    icon: 'AiOutlineUser',
+    icon: 'AiFillCaretRight',
     columns: [
         {
             name: 'id',
@@ -89,13 +89,13 @@ const UsersModel = {
         {
             name: 'username',
             title: 'Username',
-            dataType: 'VARCHAR(30) NULL',
+            dataType: 'VARCHAR(100) NULL',
             inputType: 'text',
         },
         {
             name: 'password',
             title: 'Password',
-            dataType: 'VARCHAR(100) NULL',
+            dataType: 'VARCHAR(255) NULL',
             inputType: 'password',
         },
         {
@@ -107,18 +107,17 @@ const UsersModel = {
         {
             name: 'avatar',
             title: 'Avatar',
-            dataType: 'TEXT NULL',
+            dataType: 'VARCHAR(100) NULL',
             inputType: 'image',
         },
         {
             name: 'address',
             title: 'Address',
-            dataType: 'TEXT NULL',
+            dataType: 'VARCHAR(100) NULL',
             inputType: 'textarea',
         },
     ],
-};
-
+}
 
 export default UsersModel
 
@@ -130,9 +129,10 @@ npx santuy generate model categories
 #### categories.mjs:
 ```js
 //model categories (file: santuy/models/categories.mjs)
+
 const CategoriesModel = {
     name: 'categories',
-    icon: 'AiOutlineFileAdd',
+    icon: 'AiFillCaretRight',
     columns: [
         {
             name: 'id',
@@ -143,13 +143,15 @@ const CategoriesModel = {
         {
             name: 'name',
             title: 'Category Name',
-            dataType: 'VARCHAR(30) NULL',
+            dataType: 'VARCHAR(50) NULL',
             inputType: 'text',
         },
     ],
-};
+}
+
 
 export default CategoriesModel
+
 ```
 
 ```bash
@@ -158,9 +160,10 @@ npx santuy generate model products
 #### products.mjs:
 ```js
 //model products (file: santuy/models/products.mjs)
+
 const ProductsModel = {
     name: 'products',
-    icon: 'AiOutlineFileAdd',
+    icon: 'AiFillCaretRight',
     columns: [
         {
             name: 'id',
@@ -183,7 +186,7 @@ const ProductsModel = {
         {
             name: 'name',
             title: 'Item Name',
-            dataType: 'VARCHAR(50) NULL',
+            dataType: 'VARCHAR(100) NULL',
             inputType: 'text',
         },
         {
@@ -217,9 +220,11 @@ const ProductsModel = {
             inputType: 'number',
         },
     ]
-};
+}
+
 
 export default ProductsModel
+
 ```
 
 

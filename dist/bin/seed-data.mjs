@@ -5,7 +5,7 @@ import path from 'path'
 async function seedData(seed) {
     const db = new Database()
     if (!seed || !db) {
-        console.log(`Seeding ${args[1]} error!\n`)
+        console.error(`error: Seeding ${args[1]} failed!\n`)
         process.exit(0)
     }
 
@@ -41,7 +41,7 @@ async function seedData(seed) {
         console.log(`Seeding ${seed} has been successfully!\n`)
         process.exit(0)
     } else {
-        console.log(`Seeding ${seed} error!\n`)
+        console.error(`error: Seeding ${seed} failed!\n`)
         process.exit(0)
     }
 
