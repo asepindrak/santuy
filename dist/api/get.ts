@@ -18,6 +18,9 @@ async function get({ model, paginate }: GetType) {
     }
 
     let data: any = await db.executeQuery(query)
+    if (db.provider == "postgresql") {
+        data = data.rows
+    }
     if (!data.length) {
         return false
     }

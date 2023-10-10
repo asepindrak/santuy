@@ -1,2 +1,2 @@
-declare function raw(query: string): Promise<{}>;
+declare function raw(query: string): Promise<any>;
 export { raw };

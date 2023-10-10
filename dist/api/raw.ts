@@ -8,9 +8,14 @@ async function raw(query: string) {
     if (!query) {
         return false
     }
-    let result = await db.executeQuery(query)
+    let result: any = await db.executeQuery(query)
     if (!result) {
         return false
+    }
+    if (result.rows) {
+        if (db.provider == "postgresql") {
+            result = result.rows
+        }
     }
     return result
 }
