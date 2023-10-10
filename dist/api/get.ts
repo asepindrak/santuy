@@ -25,6 +25,9 @@ async function get({ model, paginate }: GetType) {
         return false
     }
     let count: any = await db.executeQuery(`SELECT COUNT(id) as total FROM ${model.name}`)
+    if (db.provider == "postgresql") {
+        count = count.rows
+    }
     if (!count[0].total) {
         return false
     }
