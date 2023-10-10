@@ -1,7 +1,7 @@
 {
   "name": "santuy",
-  "version": "1.11.0",
-  "description": "Santuy is a nextjs framework and SQL for auto generate data from model",
+  "version": "1.11.1",
+  "description": "Santuy is a nodejs framework and SQL for auto generate data from model",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "tsc": "tsc -p tsconfig.json && tsc -p tsconfig-cjs.json",
@@ -10,7 +10,7 @@
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "files": [
-    "lib/"
+    "lib/*"
   ],
   "keywords": [
     "santuy",
