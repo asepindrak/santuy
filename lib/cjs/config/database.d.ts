@@ -5,6 +5,7 @@ declare class Database {
     private password;
     private port;
     private database;
+    provider: string;
     private pool;
     constructor();
     executeQuery: (query: any) => Promise<unknown>;
