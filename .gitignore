@@ -2,7 +2,6 @@
 # dependencies
 /node_modules
 /santuy
-/lib
 /.pnp
 .pnp.js
 
