@@ -1,9 +1,8 @@
-import { createPool } from "mysql2"
-import pg from "pg"
-const { Pool } = pg
-import parseDb from './parse-db-url.mjs'
-import 'dotenv/config'
-import providerCheck from "./provider-check.mjs"
+const { createPool } = require("mysql2")
+const { Pool } = require("pg")
+const parseDb = require('./parse-db-url.js')
+require("dotenv").config()
+const providerCheck = require("./provider-check.js")
 
 class Database {
     host
@@ -74,4 +73,4 @@ class Database {
 
 }
 
-export default Database
+module.exports = Database

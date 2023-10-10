@@ -1,4 +1,4 @@
-import Database from './database.mjs'
+const Database = require('./database.js')
 
 async function migrateDataPg(models) {
     if (!models) {
@@ -107,4 +107,4 @@ async function migrateDataPg(models) {
     process.exit(0)
 }
 
-export { migrateDataPg }
+module.exports = { migrateDataPg }

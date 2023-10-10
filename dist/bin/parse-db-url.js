@@ -1,4 +1,4 @@
-export default function parseDb(provider, dbUrl) {
+function parseDb(provider, dbUrl) {
     dbUrl = dbUrl.replace(`${provider}://`, "")
     dbUrl = dbUrl.replace("@", ":")
     let dbArr = dbUrl.split(":")
@@ -18,3 +18,5 @@ export default function parseDb(provider, dbUrl) {
     }
     return db
 }
+
+module.exports = parseDb

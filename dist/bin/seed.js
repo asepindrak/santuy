@@ -1,7 +1,7 @@
-import fs from 'fs'
-import path from 'path'
-import 'dotenv/config'
-import { seedData } from './seed-data.mjs'
+const fs = require('fs')
+const path = require('path')
+require("dotenv").config()
+const { seedData } = require('./seed-data.js')
 
 async function seedCLI(args) {
     if (args[1]) {
@@ -24,4 +24,4 @@ async function seedCLI(args) {
 
 }
 
-export { seedCLI }
+module.exports = { seedCLI }

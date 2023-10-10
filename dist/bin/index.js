@@ -1,16 +1,13 @@
 #! /usr/bin/env node
-import { readFile } from 'fs/promises'
+const { readFile } = require('fs/promises')
 
-const packageJson = JSON.parse(
-    await readFile(
-        new URL('../../package.json', import.meta.url)
-    )
-)
-import { initCLI } from './init.mjs'
-import { migrateCLI } from './migrate.mjs'
-import { generateCLI } from './generate.mjs'
-import { seedCLI } from './seed.mjs'
-import { help, santuyLog } from './help.mjs'
+require("dotenv").config()
+const version = process.env.npm_package_version
+const { initCLI } = require('./init.js')
+const { migrateCLI } = require('./migrate.js')
+const { generateCLI } = require('./generate.js')
+const { seedCLI } = require('./seed.js')
+const { help, santuyLog } = require('./help.js')
 console.log(`\n`)
 
 const args = process.argv.slice(2)
@@ -19,7 +16,7 @@ if (args.length < 1) {
 } else if (args.length < 2 && (args[0] == "--help" || args[0] == "-h")) {
     help()
 } else if (args.length < 2 && (args[0] == "--version" || args[0] == "-v")) {
-    console.log(`Santuy ${packageJson.version}\n`)
+    console.log(`Santuy ${version}\n`)
     process.exit(0)
 }
 

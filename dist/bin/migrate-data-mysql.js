@@ -1,4 +1,4 @@
-import Database from './database.mjs'
+const Database = require('./database.js')
 
 async function migrateDataMysql(models) {
     if (!models) {
@@ -104,4 +104,4 @@ async function migrateDataMysql(models) {
     process.exit(0)
 }
 
-export { migrateDataMysql }
+module.exports = { migrateDataMysql }

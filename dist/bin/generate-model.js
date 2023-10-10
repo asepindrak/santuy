@@ -1,6 +1,6 @@
-import fs from 'fs'
-import path from 'path'
-import 'dotenv/config'
+const fs = require('fs')
+const path = require('path')
+require("dotenv").config()
 
 async function generateModel(args) {
     if (args[2]) {
@@ -10,18 +10,18 @@ async function generateModel(args) {
         let model = args[2]
         model = model.toLowerCase()
         var dirname = path.dirname("santuy/models")
-        if (fs.existsSync(`${dirname}/models/${model}.mjs`)) {
+        if (fs.existsSync(`${dirname}/models/${model}.js`)) {
             console.error(`error: Model ${args[2]} exists!\n`)
             process.exit(0)
         }
-        fs.writeFileSync(`${dirname}/models/${model}.mjs`, generateModelfile(model), 'utf-8')
+        fs.writeFileSync(`${dirname}/models/${model}.js`, generateModelfile(model), 'utf-8')
         generateModelsfile(model).then((data) => {
-            fs.writeFileSync(`${dirname}/schema.mjs`, data, 'utf-8')
+            fs.writeFileSync(`${dirname}/schema.js`, data, 'utf-8')
         })
 
 
-        console.log(`${dirname}/models/${model}.mjs`)
-        console.log(`${dirname}/schema.mjs`)
+        console.log(`${dirname}/models/${model}.js`)
+        console.log(`${dirname}/schema.js`)
         console.log(`Model ${args[2]} has been generated!\n`)
     } else {
         help()
@@ -47,31 +47,31 @@ function generateModelfile(model) {
         }
 
 
-        export default ${capModel}Model
+        module.exports = ${capModel}Model
     `
 
     return modelCode
 }
 
 async function generateModelsfile(model) {
-    let jsFile = "../../../../santuy/schema.mjs"
+    let jsFile = "../../../../santuy/schema.js"
     let SANTUY_ENV = process.env.SANTUY_ENV
     if (SANTUY_ENV == "development") {
-        jsFile = "../../santuy/schema.mjs"
+        jsFile = "../../santuy/schema.js"
     }
-    const { models } = await import(jsFile)
+    const { models } = require(jsFile)
     const capModel = capitalizeFirstLetter(model)
     let importModels = ""
     let allModels = Object.keys(models)
     let allModelsStr = ""
     for (const item of allModels) {
         let capItem = capitalizeFirstLetter(item)
-        importModels += `import ${capItem}Model from "./models/${item}.mjs" \n`
+        importModels += `const ${capItem}Model = require("./models/${item}.js") \n`
         allModelsStr += `
         ${item}:${capItem}Model,
         `
     }
-    importModels += `import ${capModel}Model from "./models/${model}.mjs" \n`
+    importModels += `const ${capModel}Model = require("./models/${model}.js") \n`
     allModelsStr += `
         ${model}:${capModel}Model,
         `
@@ -84,7 +84,7 @@ async function generateModelsfile(model) {
         }
 
 
-        export { models }
+        module.exports = { models }
     `
     return modelsCode
 }
@@ -93,4 +93,4 @@ function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1)
 }
 
-export { generateModel }
+module.exports = { generateModel }

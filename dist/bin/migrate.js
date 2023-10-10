@@ -1,17 +1,17 @@
 
-import path from 'path'
-import 'dotenv/config'
-import fs from 'fs'
-import { migrateDataMysql } from './migrate-data-mysql.mjs'
-import { migrateDataPg } from './migrate-data-postgresql.mjs'
-import providerCheck from './provider-check.mjs'
+const fs = require('fs')
+const path = require('path')
+require("dotenv").config()
+const { migrateDataMysql } = require('./migrate-data-mysql.js')
+const { migrateDataPg } = require('./migrate-data-postgresql.js')
+const providerCheck = require('./provider-check.js')
 
 const migrateCLI = async () => {
     console.log("DATABASE MIGRATION & SYNC\n")
     console.log(`--------------------------------------\n\n`)
 
     var dirname = path.dirname("santuy/models")
-    if (!fs.existsSync(`${dirname}/schema.mjs`)) {
+    if (!fs.existsSync(`${dirname}/schema.js`)) {
         //schema not exists
         console.error('Schema not exist\n\n')
         console.log("init santuy first\n\n")
@@ -24,7 +24,7 @@ const migrateCLI = async () => {
     let provider = providerCheck(dbUrl)
 
     if (SANTUY_ENV == "development") {
-        const { models } = await import(`../../santuy/schema.mjs`)
+        const { models } = require(`../../santuy/schema.js`)
         if (provider == "mysql") {
             migrateDataMysql(models)
         } else if (provider == "postgresql") {
@@ -36,7 +36,7 @@ const migrateCLI = async () => {
             process.exit(0)
         }
     } else {
-        const { models } = await import(`../../../../santuy/schema.mjs`)
+        const { models } = require(`../../../../santuy/schema.js`)
         if (provider == "mysql") {
             migrateDataMysql(models)
         } else if (provider == "postgresql") {
@@ -51,4 +51,4 @@ const migrateCLI = async () => {
 
 }
 
-export { migrateCLI }
+module.exports = { migrateCLI }

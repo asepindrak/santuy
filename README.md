@@ -85,10 +85,10 @@ npx santuy generate model users
 
 [use lowercase for model name and column name]
 
-#### users.mjs:
+#### users.js:
 
 ```js
-//model users (file: santuy/models/users.mjs)
+//model users (file: santuy/models/users.js)
 
 const UsersModel = {
     name: 'users',
@@ -140,9 +140,9 @@ export default UsersModel
 ```bash
 npx santuy generate model categories
 ```
-#### categories.mjs:
+#### categories.js:
 ```js
-//model categories (file: santuy/models/categories.mjs)
+//model categories (file: santuy/models/categories.js)
 
 const CategoriesModel = {
     name: 'categories',
@@ -171,9 +171,9 @@ export default CategoriesModel
 ```bash
 npx santuy generate model products
 ```
-#### products.mjs:
+#### products.js:
 ```js
-//model products (file: santuy/models/products.mjs)
+//model products (file: santuy/models/products.js)
 
 const ProductsModel = {
     name: 'products',
@@ -304,7 +304,7 @@ npx santuy seed users
 import { NextResponse } from 'next/server';
 import { NextRequest } from "next/server";
 import { GetType, get, ModelType } from 'santuy';
-import { models } from '@santuy/schema.mjs'
+import { models } from '@santuy/schema.js'
 
 export async function GET(request: NextRequest) {
     const modelName = request.nextUrl.searchParams.get("model") ?? "";
@@ -339,7 +339,7 @@ export async function GET(request: NextRequest) {
 import { NextResponse } from 'next/server';
 import { NextRequest } from "next/server";
 import { DetailType, ModelType, detail } from 'santuy';
-import { models } from '@santuy/schema.mjs'
+import { models } from '@santuy/schema.js'
 
 export async function GET(request: NextRequest) {
 
@@ -367,7 +367,7 @@ export async function GET(request: NextRequest) {
 import { NextResponse } from 'next/server';
 import { NextRequest } from "next/server";
 import { CreateType, ModelType, create } from 'santuy';
-import { models } from '@santuy/schema.mjs'
+import { models } from '@santuy/schema.js'
 
 export async function POST(request: NextRequest) {
     const modelName = request.nextUrl.searchParams.get("model") ?? "";
@@ -394,7 +394,7 @@ export async function POST(request: NextRequest) {
 import { NextResponse } from 'next/server';
 import { NextRequest } from "next/server";
 import { ModelType, UpdateType, update } from 'santuy';
-import { models } from '@santuy/schema.mjs'
+import { models } from '@santuy/schema.js'
 
 export async function PUT(request: NextRequest) {
 
@@ -425,7 +425,7 @@ export async function PUT(request: NextRequest) {
 import { NextResponse } from 'next/server';
 import { NextRequest } from "next/server";
 import { ModelType, RemoveType, remove } from 'santuy';
-import { models } from '@santuy/schema.mjs'
+import { models } from '@santuy/schema.js'
 
 export async function DELETE(request: NextRequest) {
 
@@ -454,7 +454,7 @@ export async function DELETE(request: NextRequest) {
 import { NextResponse } from 'next/server';
 import { NextRequest } from "next/server";
 import { ModelType, RestoreType, restore } from 'santuy';
-import { models } from '@santuy/schema.mjs'
+import { models } from '@santuy/schema.js'
 
 export async function PUT(request: NextRequest) {
 

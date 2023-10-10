@@ -1,6 +1,6 @@
-import Database from './database.mjs'
-import { promises as fs } from 'fs'
-import path from 'path'
+const Database = require('./database.js')
+const { readFile } = require('fs/promises')
+const path = require('path')
 
 async function seedData(seed) {
     seed = seed.toLowerCase()
@@ -12,7 +12,7 @@ async function seedData(seed) {
 
     await db.executeQuery("START TRANSACTION")
     var dirname = path.dirname("santuy/seeds")
-    const json = await fs.readFile(`${dirname}/seeds/${seed}.json`, 'utf8')
+    const json = await readFile(`${dirname}/seeds/${seed}.json`, 'utf8')
     if (json) {
         let item
         for await (item of JSON.parse(json)) {
@@ -65,4 +65,4 @@ async function seedData(seed) {
 
 }
 
-export { seedData }
+module.exports = { seedData }

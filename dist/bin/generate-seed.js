@@ -1,6 +1,6 @@
-import fs from 'fs'
-import path from 'path'
-import 'dotenv/config'
+const fs = require('fs')
+const path = require('path')
+require("dotenv").config()
 
 async function generateSeed(args) {
     if (args[2]) {
@@ -28,15 +28,14 @@ async function generateSeed(args) {
 
 async function generateSeedfile(seed) {
     seed = seed.toLowerCase()
-    let modelFile = `../../../../santuy/models/${seed}.mjs`
+    let modelFile = `../../../../santuy/models/${seed}.js`
     let SANTUY_ENV = process.env.SANTUY_ENV
     if (SANTUY_ENV == "development") {
-        modelFile = `../../santuy/models/${seed}.mjs`
+        modelFile = `../../santuy/models/${seed}.js`
     }
 
-    const modelObj = await import(modelFile)
-    const model = Object.assign({}, modelObj)
-    const columns = model.default.columns
+    const model = require(modelFile)
+    const columns = model.columns
     let seedCode = `
 [
     {
@@ -75,4 +74,4 @@ const genRandNum = (len) => {
     return Math.floor(Math.random() * len) + 1
 }
 
-export { generateSeed }
+module.exports = { generateSeed }

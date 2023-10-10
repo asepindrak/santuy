@@ -1,10 +1,7 @@
-import { readFile } from 'fs/promises'
+const { readFile } = require('fs/promises')
+require("dotenv").config()
+const version = process.env.npm_package_version
 
-const packageJson = JSON.parse(
-    await readFile(
-        new URL('../../package.json', import.meta.url)
-    )
-)
 
 function help() {
     const command = [
@@ -32,11 +29,11 @@ function help() {
 
 function santuyLog() {
 
-    console.log(`            Santuy ${packageJson.version}          \n`)
+    console.log(`            Santuy ${version}          \n`)
     console.log(`--------------------------------------\n`)
     console.log(`**   coding while lying down   **\n`)
     console.log(`--------------------------------------\n\n`)
 
 }
 
-export { help, santuyLog }
+module.exports = { help, santuyLog }

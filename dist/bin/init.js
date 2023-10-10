@@ -1,5 +1,5 @@
-import fs from 'fs'
-import path from 'path'
+const fs = require('fs')
+const path = require('path')
 
 const initCLI = () => {
     console.log("INIT\n")
@@ -45,15 +45,15 @@ const models = `
 const models = {
     
 }
-export { models }
+module.exports = { models }
 `
 
 async function createModel() {
     var dirname = path.dirname("santuy/models")
 
-    fs.writeFileSync(`${dirname}/schema.mjs`, models, 'utf-8')
-    console.log(`${dirname}/schema.mjs`)
+    fs.writeFileSync(`${dirname}/schema.js`, models, 'utf-8')
+    console.log(`${dirname}/schema.js`)
 
 }
 
-export { initCLI }
+module.exports = { initCLI }

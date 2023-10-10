@@ -1,6 +1,6 @@
-import { generateModel } from './generate-model.mjs'
-import { generateSeed } from './generate-seed.mjs'
-import { help } from './help.mjs'
+const { generateModel } = require('./generate-model.js')
+const { generateSeed } = require('./generate-seed.js')
+const { help } = require('./help.js')
 
 const generateCLI = async (args) => {
     switch (args[1]) {
@@ -15,4 +15,4 @@ const generateCLI = async (args) => {
     }
 }
 
-export { generateCLI }
+module.exports = { generateCLI }
