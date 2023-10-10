@@ -9,6 +9,9 @@ async function detail({ model, id }: DetailType) {
     let query = `SELECT * FROM ${model.name} where trash = 0 and id = ${id} limit 1`
 
     let result: any = await db.executeQuery(query)
+    if (db.provider == "postgresql") {
+        result = result.rows
+    }
     if (!result.length) {
         return false
     }
