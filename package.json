@@ -1,7 +1,7 @@
 {
   "name": "santuy",
-  "version": "1.11.6",
-  "description": "Santuy is a nodejs framework and SQL for auto generate data from model",
+  "version": "1.11.7",
+  "description": "Santuy is a nodejs framework and database generator from model schema.",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "tsc": "tsc -p tsconfig.json && tsc -p tsconfig-cjs.json",

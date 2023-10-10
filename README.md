@@ -1,6 +1,6 @@
 # Santuy
 
-Santuy is a nodejs framework and database generator from model schema
+Santuy is a nodejs framework and database generator from model schema.
 
 > **You are viewing docs for the v1 of santuy**
 
@@ -263,8 +263,8 @@ npx santuy generate seed [model_name]
 npx santuy generate seed users
 ```
 #### users.json
+[seed users (file: santuy/seeds/users.json)]
 ```json
-//seed users (file: santuy/seeds/users.json)
 [
     {
         "username": "admin",
@@ -284,6 +284,10 @@ npx santuy seed users
 
 
 ### API SETUP
+#### Express JS example
+
+[routes/index]
+
 ```js
 var express = require('express')
 var router = express.Router()
@@ -396,7 +400,7 @@ router.delete('/:id', async function (req, res, next) {
 
 /* RESTORE DATA. */
 /* PUT: http://localhost:3000/restore/1/?model=users */
-router.put('restore/:id', async function (req, res, next) {
+router.put('/restore/:id', async function (req, res, next) {
   let id = req.params.id ?? ""
   const modelName = req.query.model
   const model = models[modelName]
@@ -413,10 +417,21 @@ router.put('restore/:id', async function (req, res, next) {
   }
 })
 
+module.exports = router
+
+```
+
+[routes/query]
+```js
+var express = require('express')
+var router = express.Router()
+const { raw } = require("santuy")
+
 /* RAW QUERY. */
-/* GET: http://localhost:3000/raw/ */
-router.get('raw/', async function (req, res, next) {
-  const response = await raw(`SELECT * FROM users`)
+/* GET: http://localhost:3000/query/raw/ */
+router.get('/raw', async function (req, res, next) {
+
+  const response = await raw("SELECT * FROM users")
   if (response) {
     res.send(response)
 
@@ -428,6 +443,8 @@ router.get('raw/', async function (req, res, next) {
 module.exports = router
 
 ```
+
+
 
 ### Types
 ```ts
