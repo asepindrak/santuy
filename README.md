@@ -1,6 +1,6 @@
 # Santuy
 
-Santuy is a nextjs framework and SQL for auto generate data from model
+Santuy is a nodejs framework and database generator from model schema
 
 > **You are viewing docs for the v1 of santuy**
 
@@ -15,8 +15,6 @@ Santuy is a nextjs framework and SQL for auto generate data from model
 - Raw query support
 - Built-in pagination
 - Powerful TypeScript support
-- Built-in async validation support
-- Built-in component & utils
 
 ### ACID Transaction support between PostgreSQL and MySQL
 
@@ -51,21 +49,6 @@ CREATE DATABASE `database_name`;
 
 ```
 
-#### modify tsconfig.json
-```json
-{
-  "compilerOptions": {
-    "paths": {
-      "@/*": [
-        "./src/*"
-      ],
-      "@santuy/*": [
-        "./santuy/*"
-      ],
-    }
-  }
-}
-```
 
 ```bash
 npx santuy init
@@ -83,12 +66,13 @@ npx santuy generate model [model_name]
 npx santuy generate model users
 ```
 
-[use lowercase for model name and column name]
+[use lowercase underscores for model name and column name]
 
 #### users.js:
 
 ```js
 //model users (file: santuy/models/users.js)
+
 
 const UsersModel = {
     name: 'users',
@@ -133,7 +117,9 @@ const UsersModel = {
     ],
 }
 
-export default UsersModel
+
+module.exports = UsersModel
+
 
 ```
 
@@ -143,6 +129,7 @@ npx santuy generate model categories
 #### categories.js:
 ```js
 //model categories (file: santuy/models/categories.js)
+
 
 const CategoriesModel = {
     name: 'categories',
@@ -164,7 +151,8 @@ const CategoriesModel = {
 }
 
 
-export default CategoriesModel
+module.exports = CategoriesModel
+
 
 ```
 
@@ -174,6 +162,7 @@ npx santuy generate model products
 #### products.js:
 ```js
 //model products (file: santuy/models/products.js)
+
 
 const ProductsModel = {
     name: 'products',
@@ -237,7 +226,8 @@ const ProductsModel = {
 }
 
 
-export default ProductsModel
+module.exports = ProductsModel
+
 
 ```
 
@@ -262,7 +252,7 @@ DATABASE_URL="postgresql://postgres:password@localhost:5432/database_name"
 ```bash
 npx santuy migrate
 ```
-
+[*if migration fails with relations, try to reorder models list from models/schema.js]
 
 ### Seed
 ```bash
@@ -293,206 +283,150 @@ npx santuy seed users
 
 
 
-### API SETUP FOR NEXTJS
-
-### Get Data
-
-```ts
-//file: api/get/route.ts
-//GET: http://localhost:3000/api/get/?model=users
-//Pagination -> GET: http://localhost:3000/api/get/?model=users&page=1&limit=10
-import { NextResponse } from 'next/server';
-import { NextRequest } from "next/server";
-import { GetType, get, ModelType } from 'santuy';
-import { models } from '@santuy/schema.js'
-
-export async function GET(request: NextRequest) {
-    const modelName = request.nextUrl.searchParams.get("model") ?? "";
-    const mod: any = models;
-    const model: ModelType = mod[modelName];
-    let page: any = request.nextUrl.searchParams.get("page") ?? "0";
-    let limit: any = request.nextUrl.searchParams.get("limit") ?? "10";
-    page = parseInt(page);
-    limit = parseInt(limit);
-    let getData: GetType = {
-        model,
-        paginate: page ? {
-            page,
-            limit
-        } : null
-    }
-    const response: any = await get(getData);
-    if (!response) {
-        return NextResponse.json("No Data!", { status: 400 })
-    }
-    return NextResponse.json(response, { status: 200 })
-}
-```
+### API SETUP
+```js
+var express = require('express')
+var router = express.Router()
+const { models } = require("../santuy/schema")
+const { get, detail, create, update, remove, restore, raw } = require("santuy")
 
 
+/* GET DATA. */
+/* GET: http://localhost:3000/?model=users */
+router.get('/', async function (req, res, next) {
+  const modelName = req.query.model
+  let page = req.query.page ?? ""
+  let limit = req.query.limit ?? "10"
+  const model = models[modelName]
+  page = parseInt(page)
+  limit = parseInt(limit)
+  let payload = {
+    model,
+    paginate: page ? {
+      page,
+      limit
+    } : null
+  }
+  const response = await get(payload)
+  if (response) {
+    res.send(response)
 
-### Get Detail
+  } else {
+    res.send({ message: "error" })
+  }
+})
 
-```ts
-//file: api/detail/route.ts
-//GET: http://localhost:3000/api/detail/?model=users&id=1
-import { NextResponse } from 'next/server';
-import { NextRequest } from "next/server";
-import { DetailType, ModelType, detail } from 'santuy';
-import { models } from '@santuy/schema.js'
+/* GET DETAIL DATA. */
+/* GET: http://localhost:3000/1/?model=users */
+router.get('/:id', async function (req, res, next) {
+  let id = req.params.id ?? ""
+  const modelName = req.query.model
+  const model = models[modelName]
+  let payload = {
+    model,
+    id
+  }
+  const response = await detail(payload)
+  if (response) {
+    res.send(response)
 
-export async function GET(request: NextRequest) {
+  } else {
+    res.send({ message: "error" })
+  }
+})
 
-    const modelName = request.nextUrl.searchParams.get("model") ?? "";
-    const mod: any = models;
-    const model: ModelType = mod[modelName];
-    let id: any = request.nextUrl.searchParams.get("id");
-    let detailData: DetailType = {
-        model,
-        id: parseInt(id) ?? null
-    }
-    const response: any = await detail(detailData);
-    if (!response) {
-        return NextResponse.json("No Data!", { status: 400 })
-    }
-    return NextResponse.json(response, { status: 200 })
-}
-```
+/* CREATE DATA. */
+/* POST: http://localhost:3000/?model=users */
+router.post('/', async function (req, res, next) {
+  const modelName = req.query.model
+  const model = models[modelName]
+  const data = req.body
+  let payload = {
+    model,
+    data
+  }
+  const response = await create(payload)
+  if (response) {
+    res.send(response)
 
-### Create
+  } else {
+    res.send({ message: "error" })
+  }
+})
 
-```ts
-//file: api/create/route.ts
-//POST: http://localhost:3000/api/create/?model=users
-import { NextResponse } from 'next/server';
-import { NextRequest } from "next/server";
-import { CreateType, ModelType, create } from 'santuy';
-import { models } from '@santuy/schema.js'
+/* UPDATE DATA. */
+/* PUT: http://localhost:3000/1/?model=users */
+router.put('/:id', async function (req, res, next) {
+  let id = req.params.id ?? ""
+  const modelName = req.query.model
+  const model = models[modelName]
+  const data = req.body
+  let payload = {
+    model,
+    data,
+    id
+  }
+  const response = await update(payload)
+  if (response) {
+    res.send(response)
 
-export async function POST(request: NextRequest) {
-    const modelName = request.nextUrl.searchParams.get("model") ?? "";
-    const mod: any = models;
-    const model: ModelType = mod[modelName];
-    const data = await request.json();
-    let createData: CreateType = {
-        model,
-        data
-    }
-    const response: any = await create(createData);
-    if (!response) {
-        return NextResponse.json("No Data!", { status: 400 })
-    }
-    return NextResponse.json(response, { status: 200 })
-}
-```
+  } else {
+    res.send({ message: "error" })
+  }
+})
 
-### Update
+/* DELETE DATA. */
+/* DELETE: http://localhost:3000/1/?model=users */
+router.delete('/:id', async function (req, res, next) {
+  let id = req.params.id ?? ""
+  const modelName = req.query.model
+  const model = models[modelName]
+  let payload = {
+    model,
+    id
+  }
+  const response = await remove(payload)
+  if (response) {
+    res.send(response)
 
-```ts
-//file: api/update/route.ts
-//PUT: http://localhost:3000/api/update/?model=users&id=1
-import { NextResponse } from 'next/server';
-import { NextRequest } from "next/server";
-import { ModelType, UpdateType, update } from 'santuy';
-import { models } from '@santuy/schema.js'
+  } else {
+    res.send({ message: "error" })
+  }
+})
 
-export async function PUT(request: NextRequest) {
+/* RESTORE DATA. */
+/* PUT: http://localhost:3000/restore/1/?model=users */
+router.put('restore/:id', async function (req, res, next) {
+  let id = req.params.id ?? ""
+  const modelName = req.query.model
+  const model = models[modelName]
+  let payload = {
+    model,
+    id
+  }
+  const response = await restore(payload)
+  if (response) {
+    res.send(response)
 
-    const modelName = request.nextUrl.searchParams.get("model") ?? "";
-    const mod: any = models;
-    const model: ModelType = mod[modelName];
-    const id = request.nextUrl.searchParams.get("id") ?? "";
-    const data = await request.json();
+  } else {
+    res.send({ message: "error" })
+  }
+})
 
-    let updateData: UpdateType = {
-        model,
-        data,
-        id: parseInt(id)
-    }
-    const response: any = await update(updateData);
-    if (!response) {
-        return NextResponse.json("No Data!", { status: 400 })
-    }
-    return NextResponse.json(response, { status: 200 })
-}
-```
+/* RAW QUERY. */
+/* GET: http://localhost:3000/raw/ */
+router.get('raw/', async function (req, res, next) {
+  const response = await raw(`SELECT * FROM users`)
+  if (response) {
+    res.send(response)
 
-### Remove
+  } else {
+    res.send({ message: "error" })
+  }
+})
 
-```ts
-//file: api/remove/route.ts
-//DELETE: http://localhost:3000/api/remove/?model=users&id=1
-import { NextResponse } from 'next/server';
-import { NextRequest } from "next/server";
-import { ModelType, RemoveType, remove } from 'santuy';
-import { models } from '@santuy/schema.js'
+module.exports = router
 
-export async function DELETE(request: NextRequest) {
-
-    const modelName = request.nextUrl.searchParams.get("model") ?? "";
-    const mod: any = models;
-    const model: ModelType = mod[modelName];
-    const id = request.nextUrl.searchParams.get("id") ?? "";
-
-    let removeData: RemoveType = {
-        model,
-        id: parseInt(id)
-    }
-    const response: any = await remove(removeData);
-    if (!response) {
-        return NextResponse.json("No Data!", { status: 400 })
-    }
-    return NextResponse.json(response, { status: 200 })
-}
-```
-
-### Restore
-
-```ts
-//file: api/restore/route.ts
-//PUT: http://localhost:3000/api/restore/?model=users&id=1
-import { NextResponse } from 'next/server';
-import { NextRequest } from "next/server";
-import { ModelType, RestoreType, restore } from 'santuy';
-import { models } from '@santuy/schema.js'
-
-export async function PUT(request: NextRequest) {
-
-    const modelName = request.nextUrl.searchParams.get("model") ?? "";
-    const mod: any = models;
-    const model: ModelType = mod[modelName];
-    const id = request.nextUrl.searchParams.get("id") ?? "";
-
-    let restoreData: RestoreType = {
-        model,
-        id: parseInt(id)
-    }
-    const response: any = await restore(restoreData);
-    if (!response) {
-        return NextResponse.json("No Data!", { status: 400 })
-    }
-    return NextResponse.json(response, { status: 200 })
-}
-```
-
-### Raw Query
-
-```ts
-//file: api/raw/route.ts
-//PUT: http://localhost:3000/api/raw/?id=1
-import { NextResponse } from 'next/server';
-import { NextRequest } from "next/server";
-import { raw } from 'santuy'
-
-export async function GET(request: NextRequest) {
-    let id: any = request.nextUrl.searchParams.get("id");
-    if (!id) {
-        return NextResponse.json("error: id not define", { status: 400 })
-    }
-    let query: string = `SELECT * FROM users WHERE id = ${id}`
-    let response = await raw(query);
-    return NextResponse.json(response, { status: 200 })
-}
 ```
 
 ### Types

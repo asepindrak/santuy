@@ -1,6 +1,6 @@
 {
   "name": "santuy",
-  "version": "1.11.3",
+  "version": "1.11.4",
   "description": "Santuy is a nodejs framework and SQL for auto generate data from model",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

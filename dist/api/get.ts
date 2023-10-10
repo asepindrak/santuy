@@ -9,7 +9,12 @@ async function get({ model, paginate }: GetType) {
     let query = `SELECT * FROM ${model.name} where trash = 0 order by id desc`
     if (paginate) {
         let skip = (paginate.page > 1) ? (paginate.page * paginate.limit) - paginate.limit : 0
-        query += ` LIMIT ${skip}, ${paginate.limit}`
+        if (db.provider == "mysql") {
+            query += ` LIMIT ${skip}, ${paginate.limit}`
+        } else if (db.provider == "postgresql") {
+            query += ` LIMIT ${skip} OFFSET ${paginate.limit}`
+        }
+
     }
 
     let data: any = await db.executeQuery(query)

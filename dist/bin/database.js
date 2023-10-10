@@ -11,6 +11,7 @@ class Database {
     port
     database
     pool
+    provider
     constructor() {
         let dbUrl = process.env.DATABASE_URL
         if (!dbUrl) {
@@ -27,6 +28,7 @@ class Database {
         this.password = database.password
         this.port = database.port
         this.database = database.database
+        this.provider = provider
         if (provider == "mysql") {
             this.pool = createPool({
                 host: this.host,
