@@ -41,10 +41,10 @@ async function seedData(seed) {
                 if (indexValue > 0 && indexValue < column.length) {
                     queryStr += `, `
                 }
-                if (col == "password") {
-                    queryStr += `md5('${item[col]}')`
+                if (colValue == "password") {
+                    queryStr += `md5('${item[colValue]}')`
                 } else {
-                    queryStr += `'${item[col]}'`
+                    queryStr += `'${item[colValue]}'`
                 }
                 indexValue++
             }

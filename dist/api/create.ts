@@ -31,10 +31,10 @@ async function create({ model, data }: CreateType) {
         if (indexValue > 0 && indexValue < column.length) {
             queryStr += `, `
         }
-        if (col == "password") {
-            queryStr += `md5('${data[col]}')`
+        if (colValue == "password") {
+            queryStr += `md5('${data[colValue]}')`
         } else {
-            queryStr += `'${data[col]}'`
+            queryStr += `'${data[colValue]}'`
         }
         indexValue++
     }
