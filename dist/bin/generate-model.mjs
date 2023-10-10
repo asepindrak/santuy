@@ -8,6 +8,7 @@ async function generateModel(args) {
         console.log(`--------------------------------------\n\n`)
         console.log(`Generating model ${args[2]}\n`)
         let model = args[2]
+        model = model.toLowerCase()
         var dirname = path.dirname("santuy/models")
         if (fs.existsSync(`${dirname}/models/${model}.mjs`)) {
             console.error(`error: Model ${args[2]} exists!\n`)
@@ -29,6 +30,7 @@ async function generateModel(args) {
 }
 
 function generateModelfile(model) {
+    model = model.toLowerCase()
     const capModel = capitalizeFirstLetter(model)
     const modelCode = `
         const ${capModel}Model = {

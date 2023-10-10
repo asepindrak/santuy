@@ -9,6 +9,7 @@ async function seedCLI(args) {
         console.log(`--------------------------------------\n\n`)
         console.log(`Seeding ${args[1]}\n`)
         let seed = args[1]
+        seed = seed.toLowerCase()
         var dirname = path.dirname("santuy/seeds")
         if (!fs.existsSync(`${dirname}/seeds/${seed}.json`)) {
             console.error(`error: Seed ${seed}.json not exists!\n`)

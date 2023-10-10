@@ -2,7 +2,9 @@
 import path from 'path'
 import 'dotenv/config'
 import fs from 'fs'
-import { migrateData } from './migrate-data.mjs'
+import { migrateDataMysql } from './migrate-data-mysql.mjs'
+import { migrateDataPg } from './migrate-data-postgresql.mjs'
+import providerCheck from './provider-check.mjs'
 
 const migrateCLI = async () => {
     console.log("DATABASE MIGRATION & SYNC\n")
@@ -18,12 +20,33 @@ const migrateCLI = async () => {
         process.exit(0)
     }
     let SANTUY_ENV = process.env.SANTUY_ENV
+    let dbUrl = process.env.DATABASE_URL
+    let provider = providerCheck(dbUrl)
+
     if (SANTUY_ENV == "development") {
         const { models } = await import(`../../santuy/schema.mjs`)
-        migrateData(models)
+        if (provider == "mysql") {
+            migrateDataMysql(models)
+        } else if (provider == "postgresql") {
+            migrateDataPg(models)
+        } else {
+            console.error('SQL provider error\n\n')
+            console.log("env file:\n")
+            console.log('provider: postgresql / mysql')
+            process.exit(0)
+        }
     } else {
         const { models } = await import(`../../../../santuy/schema.mjs`)
-        migrateData(models)
+        if (provider == "mysql") {
+            migrateDataMysql(models)
+        } else if (provider == "postgresql") {
+            migrateDataPg(models)
+        } else {
+            console.error('SQL provider error\n\n')
+            console.log("env file:\n")
+            console.log('provider: postgresql / mysql')
+            process.exit(0)
+        }
     }
 
 }

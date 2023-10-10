@@ -7,8 +7,8 @@ const PriceFormat = new Intl.NumberFormat("id-ID", {
 
 import { DatabaseType } from '../types/type'
 
-const parseDb = (dbUrl: string) => {
-    dbUrl = dbUrl.replace("mysql://", "")
+const parseDb = (provider: string, dbUrl: string) => {
+    dbUrl = dbUrl.replace(`${provider}://`, "")
     dbUrl = dbUrl.replace("@", ":")
     let dbArr = dbUrl.split(":")
     let user = dbArr[0]
@@ -28,4 +28,10 @@ const parseDb = (dbUrl: string) => {
     return database
 }
 
-export { PriceFormat, parseDb }
+const providerCheck = (dbUrl: string) => {
+    let dbArr = dbUrl.split(":")
+    let provider = dbArr[0]
+    return provider
+}
+
+export { PriceFormat, parseDb, providerCheck }

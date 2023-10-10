@@ -1,7 +1,9 @@
 import { createPool } from "mysql2"
+import pg from "pg";
+const { Pool } = pg;
 import { DatabaseType } from "../types/type"
 import 'dotenv/config'
-import { parseDb } from "..//utils/util"
+import { parseDb, providerCheck } from "..//utils/util"
 
 class Database {
     private host: string
@@ -18,25 +20,37 @@ class Database {
             console.log("example:\n")
             console.log('DATABASE_URL="mysql://root:@localhost:3306/santuy"')
         }
-        let database: DatabaseType = parseDb(dbUrl ?? "mysql://root:@localhost:3306/santuy")
+        let provider: string = providerCheck(dbUrl ?? "")
+        let database: DatabaseType = parseDb(provider, dbUrl ?? "mysql://root:@localhost:3306/santuy")
         this.host = database.host
         this.user = database.user
         this.password = database.password
         this.port = database.port
         this.database = database.database
-        this.pool = createPool({
-            host: this.host,
-            user: this.user,
-            password: this.password,
-            port: this.port,
-            database: this.database,
-        })
-        this.pool.getConnection((err: any) => {
-            if (err) {
-                console.log("Error connecting to db...")
-            }
-            console.log("Connected to db...")
-        })
+        if (provider == "mysql") {
+            this.pool = createPool({
+                host: this.host,
+                user: this.user,
+                password: this.password,
+                port: this.port,
+                database: this.database,
+            })
+            this.pool.getConnection((err: any) => {
+                if (err) {
+                    console.log("Error connecting to db...")
+                }
+                console.log("Connected to db...")
+            })
+        } else if (provider == "postgresql") {
+            this.pool = new Pool({
+                host: this.host,
+                user: this.user,
+                password: this.password,
+                port: this.port,
+                database: this.database,
+            })
+
+        }
     }
 
     public executeQuery = (query: any, params: Array<string | number> = []) => {

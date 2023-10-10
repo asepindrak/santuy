@@ -1,5 +1,5 @@
-export default function parseDb(dbUrl) {
-    dbUrl = dbUrl.replace("mysql://", "")
+export default function parseDb(provider, dbUrl) {
+    dbUrl = dbUrl.replace(`${provider}://`, "")
     dbUrl = dbUrl.replace("@", ":")
     let dbArr = dbUrl.split(":")
     let user = dbArr[0]

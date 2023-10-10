@@ -1,6 +1,6 @@
 {
   "name": "santuy",
-  "version": "1.9.0",
+  "version": "1.10.0",
   "description": "Santuy is a nextjs framework and SQL for auto generate data from model",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -43,11 +43,13 @@
     "formik": "^2.4.5",
     "mysql2": "^3.6.1",
     "path": "^0.12.7",
+    "pg": "^8.11.3",
     "util": "^0.12.5",
     "yup": "^1.3.2"
   },
   "devDependencies": {
     "@types/node": "^20.8.2",
+    "@types/pg": "^8.10.4",
     "typescript": "^5.2.2"
   }
 }

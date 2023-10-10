@@ -6,16 +6,27 @@ Santuy is a nextjs framework and SQL for auto generate data from model
 
 **Features**:
 
+- Mysql and Postgresql support
 - Migrate database from model schema (automatic sync table)
 - Database Relation & include support
 - Database Seed support
-- Built-in Database Transaction support (automatic rollback if query fails)
+- Built-in ACID Transaction support (automatic rollback if query fails)
 - Built-in CRUD
 - Raw query support
 - Built-in pagination
 - Powerful TypeScript support
 - Built-in async validation support
 - Built-in component & utils
+
+### ACID Transaction support between PostgreSQL and MySQL
+
+#### Mysql
+1. DML (Yes)
+2. DDL (Mysql < 8 (No) / Mysql > 8 (Single statement atomic DDL))
+
+#### Postgresql
+1. DML (Yes)
+2. DDL (Yes)
 
 ## Getting Started
 
@@ -71,6 +82,9 @@ npx santuy generate model [model_name]
 ```bash
 npx santuy generate model users
 ```
+
+[use lowercase for model name and column name]
+
 #### users.mjs:
 
 ```js
@@ -172,13 +186,13 @@ const ProductsModel = {
             inputType: 'number',
         },
         {
-            name: 'categoryId',
+            name: 'category_id',
             title: 'Category',
             dataType: 'INT NULL',
             inputType: 'select',
             selectData: "categories",
             relation: {
-                field: 'categoryId',
+                field: 'category_id',
                 reference: 'categories.id',
                 select: 'categories.name'
             },
@@ -227,10 +241,21 @@ export default ProductsModel
 
 ```
 
-
 ### .env file
+[mysql]
+DATABASE_URL="mysql://USER:PASSWORD@HOST:PORT/DATABASE"
+
+[postgresql]
+DATABASE_URL="postgresql://USER:PASSWORD@HOST:PORT/DATABASE"
+
+### .env file example mysql
 ```
 DATABASE_URL="mysql://root:@localhost:3306/database_name"
+```
+
+### .env file example postgresql
+```
+DATABASE_URL="postgresql://postgres:password@localhost:5432/database_name"
 ```
 
 ### Database Migration & Sync

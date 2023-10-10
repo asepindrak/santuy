@@ -8,6 +8,7 @@ async function generateSeed(args) {
         console.log(`--------------------------------------\n\n`)
         console.log(`Generating seed ${args[2]}\n`)
         let seed = args[2]
+        seed = seed.toLowerCase()
         var dirname = path.dirname("santuy/seeds")
         if (fs.existsSync(`${dirname}/seeds/${seed}.json`)) {
             console.error(`error: Seed ${args[2]} exists!\n`)
@@ -26,6 +27,7 @@ async function generateSeed(args) {
 }
 
 async function generateSeedfile(seed) {
+    seed = seed.toLowerCase()
     let modelFile = `../../../../santuy/models/${seed}.mjs`
     let SANTUY_ENV = process.env.SANTUY_ENV
     if (SANTUY_ENV == "development") {
@@ -41,6 +43,7 @@ async function generateSeedfile(seed) {
     `
     let index = 0
     for (const col of columns) {
+        col.name = col.name.toLowerCase()
         if (col.name != "id") {
             if (col.inputType == "number" || col.inputType == "checkbox") {
                 seedCode += `

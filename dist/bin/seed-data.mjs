@@ -3,6 +3,7 @@ import { promises as fs } from 'fs'
 import path from 'path'
 
 async function seedData(seed) {
+    seed = seed.toLowerCase()
     const db = new Database()
     if (!seed || !db) {
         console.error(`error: Seeding ${args[1]} failed!\n`)
@@ -21,6 +22,7 @@ async function seedData(seed) {
             let index = 0
             let col
             for await (col of column) {
+                col.name = col.name.toLowerCase()
                 if (index > 0 && index < column.length) {
                     queryStr += `, `
                 }

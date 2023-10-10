@@ -1,6 +1,9 @@
 import { createPool } from "mysql2"
+import pg from "pg"
+const { Pool } = pg
 import parseDb from './parse-db-url.mjs'
 import 'dotenv/config'
+import providerCheck from "./provider-check.mjs"
 
 class Database {
     host
@@ -18,25 +21,38 @@ class Database {
             console.log('DATABASE_URL="mysql://root:@localhost:3306/santuy"')
             return
         }
-        let database = parseDb(dbUrl)
+        let provider = providerCheck(dbUrl)
+        let database = parseDb(provider, dbUrl)
         this.host = database.host
         this.user = database.user
         this.password = database.password
         this.port = database.port
         this.database = database.database
-        this.pool = createPool({
-            host: this.host,
-            user: this.user,
-            password: this.password,
-            port: this.port,
-            database: this.database,
-        })
-        this.pool.getConnection((err) => {
-            if (err) {
-                console.log("Error connecting to db...")
-            }
-            console.log("Connected to db...")
-        })
+        if (provider == "mysql") {
+            this.pool = createPool({
+                host: this.host,
+                user: this.user,
+                password: this.password,
+                port: this.port,
+                database: this.database,
+            })
+            this.pool.getConnection((err) => {
+                if (err) {
+                    console.log("Error connecting to db...")
+                }
+                console.log("Connected to db...")
+            })
+        } else if (provider == "postgresql") {
+            this.pool = new Pool({
+                host: this.host,
+                user: this.user,
+                password: this.password,
+                port: this.port,
+                database: this.database,
+            })
+
+        }
+
     }
 
     executeQuery = (query, params = []) => {
