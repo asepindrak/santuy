@@ -53,10 +53,10 @@ class Database {
         }
     }
 
-    public executeQuery = (query: any, params: Array<string | number> = []) => {
+    public executeQuery = (query: any) => {
         return new Promise((resolve, reject) => {
             try {
-                this.pool.query(query, params, (err: any, data: unknown) => {
+                this.pool.query(query, [], (err: any, data: unknown) => {
                     if (err) {
                         console.log('ROLLBACK', err)
                         this.pool.query("ROLLBACK")

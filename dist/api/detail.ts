@@ -6,10 +6,10 @@ async function detail({ model, id }: DetailType) {
     if (!model || !id) {
         return false
     }
-    let query = `SELECT * FROM ${model.name} where trash = 0 and id = ? limit 1`
+    let query = `SELECT * FROM ${model.name} where trash = 0 and id = ${id} limit 1`
 
-    let result: any = await db.executeQuery(query, [id])
-    if (!result) {
+    let result: any = await db.executeQuery(query)
+    if (!result.length) {
         return false
     }
     return result

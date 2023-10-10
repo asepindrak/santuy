@@ -475,24 +475,21 @@ export async function PUT(request: NextRequest) {
 }
 ```
 
-### Raw
+### Raw Query
 
 ```ts
 //file: api/raw/route.ts
 //PUT: http://localhost:3000/api/raw/?id=1
 import { NextResponse } from 'next/server';
 import { NextRequest } from "next/server";
-import { RawType, raw } from 'santuy'
+import { raw } from 'santuy'
 
 export async function GET(request: NextRequest) {
     let id: any = request.nextUrl.searchParams.get("id");
     if (!id) {
         return NextResponse.json("error: id not define", { status: 400 })
     }
-    let query: RawType = {
-        query: `SELECT * FROM users WHERE id = ?`,
-        params: [id]
-    }
+    let query: string = `SELECT * FROM users WHERE id = ${id}`
     let response = await raw(query);
     return NextResponse.json(response, { status: 200 })
 }
@@ -574,11 +571,6 @@ export interface RemoveType {
 export interface RestoreType {
     model: ModelType;
     id: number | string;
-}
-
-export interface RawType {
-    query: string,
-    params?: Array<string | number>
 }
 
 export interface PaginateType {

@@ -74,11 +74,6 @@ export interface RestoreType {
     id: number | string;
 }
 
-export interface RawType {
-    query: string,
-    params?: Array<string | number>
-}
-
 export interface PaginateType {
     page: number;
     limit: number;

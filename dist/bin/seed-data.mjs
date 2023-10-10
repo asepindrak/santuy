@@ -17,24 +17,40 @@ async function seedData(seed) {
         let item
         for await (item of JSON.parse(json)) {
             const column = Object.keys(item)
-            let queryStr = `INSERT INTO ${seed} SET `
-            let queryArr = []
+            let queryStr = `INSERT INTO ${seed} ( `
             let index = 0
             let col
             for await (col of column) {
-                col.name = col.name.toLowerCase()
+                col = col.toLowerCase()
                 if (index > 0 && index < column.length) {
                     queryStr += `, `
                 }
                 if (col == "password") {
-                    queryStr += `${col} = md5(?) `
+                    queryStr += `${col} `
                 } else {
-                    queryStr += `${col} = ? `
+                    queryStr += `${col} `
                 }
                 index++
-                queryArr.push(item[col])
             }
-            await db.executeQuery(queryStr, queryArr)
+            queryStr += ` ) `
+            queryStr += ` VALUES ( `
+            let indexValue = 0
+            let colValue
+            for await (colValue of column) {
+                colValue = colValue.toLowerCase()
+                if (indexValue > 0 && indexValue < column.length) {
+                    queryStr += `, `
+                }
+                if (col == "password") {
+                    queryStr += `md5('${item[col]}')`
+                } else {
+                    queryStr += `'${item[col]}'`
+                }
+                indexValue++
+            }
+            queryStr += ` ) `
+            console.log(queryStr)
+            await db.executeQuery(queryStr)
         }
 
         await db.executeQuery("COMMIT")

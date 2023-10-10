@@ -13,10 +13,13 @@ async function get({ model, paginate }: GetType) {
     }
 
     let data: any = await db.executeQuery(query)
-    if (!data) {
+    if (!data.length) {
         return false
     }
-    let count: any = await db.executeQuery(`SELECT COUNT(*) as total FROM ${model.name}`)
+    let count: any = await db.executeQuery(`SELECT COUNT(id) as total FROM ${model.name}`)
+    if (!count[0].total) {
+        return false
+    }
     let result: ResultType = {
         data,
         page: paginate?.page ?? 1,

@@ -8,7 +8,6 @@ async function update({ model, data, id }: UpdateType) {
     }
     const column = Object.keys(data)
     let queryStr = `UPDATE ${model.name} SET `
-    let queryArr: any = []
     let index = 0
     let col: any
     for await (col of column) {
@@ -16,16 +15,14 @@ async function update({ model, data, id }: UpdateType) {
             queryStr += `, `
         }
         if (col == "password") {
-            queryStr += `${col} = md5(?) `
+            queryStr += `${col} = md5('${data[col]}') `
         } else {
-            queryStr += `${col} = ? `
+            queryStr += `${col} = '${data[col]}' `
         }
         index++
-        queryArr.push(data[col])
     }
-    queryStr += ` WHERE id=?`
-    queryArr.push(id)
-    let result = await db.executeQuery(queryStr, queryArr)
+    queryStr += ` WHERE id=${id}`
+    let result = await db.executeQuery(queryStr)
     return result
 }
 

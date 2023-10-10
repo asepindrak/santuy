@@ -1,7 +1,6 @@
 import Database from "../config/database"
-import { RawType } from '../types/type'
 
-async function raw({ query, params = [] }: RawType) {
+async function raw(query: string) {
     if (!query) {
         return false
     }
@@ -9,7 +8,7 @@ async function raw({ query, params = [] }: RawType) {
     if (!query) {
         return false
     }
-    let result = await db.executeQuery(query, params)
+    let result = await db.executeQuery(query)
     if (!result) {
         return false
     }

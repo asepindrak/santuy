@@ -55,10 +55,10 @@ class Database {
 
     }
 
-    executeQuery = (query, params = []) => {
+    executeQuery = (query) => {
         return new Promise((resolve, reject) => {
             try {
-                this.pool.query(query, params, (err, data) => {
+                this.pool.query(query, [], (err, data) => {
                     if (err) {
                         console.log('ROLLBACK', err)
                         this.pool.query("ROLLBACK")

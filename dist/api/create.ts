@@ -7,23 +7,39 @@ async function create({ model, data }: CreateType) {
         return false
     }
     const column = Object.keys(data)
-    let queryStr = `INSERT INTO ${model.name} SET `
-    let queryArr: any = []
+    let queryStr = `INSERT INTO ${model} ( `
     let index = 0
     let col: any
     for await (col of column) {
+        col = col.toLowerCase()
         if (index > 0 && index < column.length) {
             queryStr += `, `
         }
         if (col == "password") {
-            queryStr += `${col} = md5(?) `
+            queryStr += `${col} `
         } else {
-            queryStr += `${col} = ? `
+            queryStr += `${col} `
         }
         index++
-        queryArr.push(data[col])
     }
-    let result = await db.executeQuery(queryStr, queryArr)
+    queryStr += ` ) `
+    queryStr += ` VALUES ( `
+    let indexValue = 0
+    let colValue: any
+    for await (colValue of column) {
+        colValue = colValue.toLowerCase()
+        if (indexValue > 0 && indexValue < column.length) {
+            queryStr += `, `
+        }
+        if (col == "password") {
+            queryStr += `md5('${data[col]}')`
+        } else {
+            queryStr += `'${data[col]}'`
+        }
+        indexValue++
+    }
+    queryStr += ` ) `
+    let result = await db.executeQuery(queryStr)
     return result
 }
 
