@@ -6,7 +6,7 @@ const version = process.env.npm_package_version
 function help() {
     const command = [
         ["init", "Generate santuy directory"],
-        ["migrate", "Database migration & sync"],
+        ["sync", "Database sync & sync"],
         ["seed", "Database seeder"],
         ["generate", "Generate model or seed"],
     ]
@@ -21,7 +21,7 @@ function help() {
     console.log('npx santuy -v or --version')
     console.log('npx santuy init')
     console.log('npx santuy generate model users')
-    console.log('npx santuy migrate')
+    console.log('npx santuy sync')
     console.log('npx santuy generate seed users')
     console.log('npx santuy seed users')
     process.exit(0)

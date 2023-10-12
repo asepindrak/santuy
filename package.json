@@ -1,6 +1,6 @@
 {
   "name": "santuy",
-  "version": "1.11.7",
+  "version": "1.12.0",
   "description": "Santuy is a nodejs framework and database generator from model schema.",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -22,7 +22,7 @@
     "nextjs",
     "typescript",
     "database",
-    "database-migrations",
+    "database-sync",
     "database-management",
     "query-builder",
     "orm"

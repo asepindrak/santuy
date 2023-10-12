@@ -4,7 +4,7 @@ const { readFile } = require('fs/promises')
 require("dotenv").config()
 const version = process.env.npm_package_version
 const { initCLI } = require('./init.js')
-const { migrateCLI } = require('./migrate.js')
+const { syncCLI } = require('./sync.js')
 const { generateCLI } = require('./generate.js')
 const { seedCLI } = require('./seed.js')
 const { help, santuyLog } = require('./help.js')
@@ -25,9 +25,9 @@ switch (args[0]) {
         santuyLog()
         initCLI()
         break
-    case "migrate":
+    case "sync":
         santuyLog()
-        migrateCLI()
+        syncCLI()
         break
     case "generate":
         santuyLog()

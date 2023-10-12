@@ -1,6 +1,6 @@
 const Database = require('./database.js')
 
-async function migrateDataPg(models) {
+async function syncDataPg(models) {
     if (!models) {
         return false
     }
@@ -102,9 +102,9 @@ async function migrateDataPg(models) {
     await db.executeQuery("COMMIT")
     console.log("\n")
     console.log(`--------------------------------------\n\n`)
-    console.log("MIGRATION SUCCESSFULLY\n")
+    console.log("SYNC SUCCESSFULLY\n")
     console.log(`--------------------------------------\n\n`)
     process.exit(0)
 }
 
-module.exports = { migrateDataPg }
+module.exports = { syncDataPg }

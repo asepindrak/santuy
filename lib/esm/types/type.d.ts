@@ -29,7 +29,7 @@ export interface RelationType {
     reference: string;
     select: string;
 }
-export interface MigrateType {
+export interface SyncType {
     models: any;
 }
 export interface SeedType {

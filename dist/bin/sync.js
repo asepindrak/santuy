@@ -2,12 +2,12 @@
 const fs = require('fs')
 const path = require('path')
 require("dotenv").config()
-const { migrateDataMysql } = require('./migrate-data-mysql.js')
-const { migrateDataPg } = require('./migrate-data-postgresql.js')
+const { syncDataMysql } = require('./sync-model-mysql.js')
+const { syncDataPg } = require('./sync-model-postgresql.js')
 const providerCheck = require('./provider-check.js')
 
-const migrateCLI = async () => {
-    console.log("DATABASE MIGRATION & SYNC\n")
+const syncCLI = async () => {
+    console.log("DATABASE SYNC & SYNC\n")
     console.log(`--------------------------------------\n\n`)
 
     var dirname = path.dirname("santuy/models")
@@ -26,9 +26,9 @@ const migrateCLI = async () => {
     if (SANTUY_ENV == "development") {
         const { models } = require(`../../santuy/schema.js`)
         if (provider == "mysql") {
-            migrateDataMysql(models)
+            syncDataMysql(models)
         } else if (provider == "postgresql") {
-            migrateDataPg(models)
+            syncDataPg(models)
         } else {
             console.error('SQL provider error\n\n')
             console.log("env file:\n")
@@ -38,9 +38,9 @@ const migrateCLI = async () => {
     } else {
         const { models } = require(`../../../../santuy/schema.js`)
         if (provider == "mysql") {
-            migrateDataMysql(models)
+            syncDataMysql(models)
         } else if (provider == "postgresql") {
-            migrateDataPg(models)
+            syncDataPg(models)
         } else {
             console.error('SQL provider error\n\n')
             console.log("env file:\n")
@@ -51,4 +51,4 @@ const migrateCLI = async () => {
 
 }
 
-module.exports = { migrateCLI }
+module.exports = { syncCLI }

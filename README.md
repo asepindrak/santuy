@@ -7,7 +7,7 @@ Santuy is a nodejs framework and database generator from model schema.
 **Features**:
 
 - Mysql and Postgresql support
-- Migrate database from model schema (automatic sync table)
+- Sync database from model schema
 - Database Relation & include support
 - Database Seed support
 - Built-in ACID Transaction support (automatic rollback if query fails)
@@ -35,7 +35,7 @@ npm i santuy
 ### Santuy Commands
 ```bash
 init "Generate santuy directory"
-migrate "Database migration & sync"
+sync "Database sync"
 seed "Database seeder"
 generate "Generate model or seed"
 ```
@@ -248,11 +248,11 @@ DATABASE_URL="mysql://root:@localhost:3306/database_name"
 DATABASE_URL="postgresql://postgres:password@localhost:5432/database_name"
 ```
 
-### Database Migration & Sync
+### Database Sync
 ```bash
-npx santuy migrate
+npx santuy sync
 ```
-[*if migration fails with relations, try to reorder models list from models/schema.js]
+[*if sync fails with relations, try to reorder models list from models/schema.js]
 
 ### Seed
 ```bash
@@ -484,7 +484,7 @@ export interface RelationType {
     select: string;
 }
 
-export interface MigrateType {
+export interface SyncType {
     models: any;
 }
 

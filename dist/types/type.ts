@@ -34,7 +34,7 @@ export interface RelationType {
     select: string;
 }
 
-export interface MigrateType {
+export interface SyncType {
     models: any;
 }
 
