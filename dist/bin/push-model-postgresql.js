@@ -1,6 +1,6 @@
 const Database = require('./database.js')
 
-async function syncModelPg(models) {
+async function pushModelPg(models) {
     if (!models) {
         return false
     }
@@ -102,9 +102,9 @@ async function syncModelPg(models) {
     await db.executeQuery("COMMIT")
     console.log("\n")
     console.log(`--------------------------------------\n\n`)
-    console.log("SYNC SUCCESSFULLY\n")
+    console.log("PUSH SUCCESSFULLY\n")
     console.log(`--------------------------------------\n\n`)
     process.exit(0)
 }
 
-module.exports = { syncModelPg }
+module.exports = { pushModelPg }

@@ -7,6 +7,8 @@ const { initCLI } = require('./init.js')
 const { syncCLI } = require('./sync.js')
 const { generateCLI } = require('./generate.js')
 const { seedCLI } = require('./seed.js')
+const { pullCLI } = require('./pull.js')
+const { pushCLI } = require('./push.js')
 const { help, santuyLog } = require('./help.js')
 console.log(`\n`)
 
@@ -36,6 +38,14 @@ switch (args[0]) {
     case "seed":
         santuyLog()
         seedCLI(args)
+        break
+    case "pull":
+        santuyLog()
+        pullCLI(args)
+        break
+    case "push":
+        santuyLog()
+        pushCLI(args)
         break
     default:
         help()

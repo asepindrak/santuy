@@ -2,12 +2,12 @@
 const fs = require('fs')
 const path = require('path')
 require("dotenv").config()
-const { syncModelMysql } = require('./sync-model-mysql.js')
-const { syncModelPg } = require('./sync-model-postgresql.js')
+const { pushModelMysql } = require('./push-model-mysql.js')
+const { pushModelPg } = require('./push-model-postgresql.js')
 const providerCheck = require('./provider-check.js')
 
-const syncCLI = async () => {
-    console.log("DATABASE SYNC\n")
+const pushCLI = async () => {
+    console.log("DATABASE PUSH\n")
     console.log(`--------------------------------------\n\n`)
 
     var dirname = path.dirname("santuy/models")
@@ -26,9 +26,9 @@ const syncCLI = async () => {
     if (SANTUY_ENV == "development") {
         const { models } = require(`../../santuy/schema.js`)
         if (provider == "mysql") {
-            syncModelMysql(models)
+            pushModelMysql(models)
         } else if (provider == "postgresql") {
-            syncModelPg(models)
+            pushModelPg(models)
         } else {
             console.error('SQL provider error\n\n')
             console.log("env file:\n")
@@ -38,9 +38,9 @@ const syncCLI = async () => {
     } else {
         const { models } = require(`../../../../santuy/schema.js`)
         if (provider == "mysql") {
-            syncModelMysql(models)
+            pushModelMysql(models)
         } else if (provider == "postgresql") {
-            syncModelPg(models)
+            pushModelPg(models)
         } else {
             console.error('SQL provider error\n\n')
             console.log("env file:\n")
@@ -51,4 +51,4 @@ const syncCLI = async () => {
 
 }
 
-module.exports = { syncCLI }
+module.exports = { pushCLI }

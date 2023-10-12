@@ -22,7 +22,7 @@ export interface ColumnType {
     relation?: RelationType;
 }
 
-type InputType = 'text' | 'number' | 'password' | 'email' | 'select' | 'textarea' | 'file' | 'image' | 'hidden' | 'checkbox';
+type InputType = 'text' | 'number' | 'password' | 'email' | 'select' | 'textarea' | 'file' | 'image' | 'hidden' | 'checkbox' | 'date' | 'datetime';
 export interface IncludeType {
     model: ModelType;
     relation: string;

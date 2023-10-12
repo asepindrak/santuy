@@ -1,6 +1,6 @@
 const Database = require('./database.js')
 
-async function syncModelMysql(models) {
+async function pushModelMysql(models) {
     if (!models) {
         return false
     }
@@ -99,9 +99,9 @@ async function syncModelMysql(models) {
     await db.executeQuery("COMMIT")
     console.log("\n")
     console.log(`--------------------------------------\n\n`)
-    console.log("SYNC SUCCESSFULLY\n")
+    console.log("PUSH SUCCESSFULLY\n")
     console.log(`--------------------------------------\n\n`)
     process.exit(0)
 }
 
-module.exports = { syncModelMysql }
+module.exports = { pushModelMysql }

@@ -34,8 +34,10 @@ npm i santuy
 
 ### Santuy Commands
 ```bash
-init "Generate santuy directory"
-sync "Database sync"
+init "Initiating Santuy"
+push "Generate database from model schema"
+pull "Generate model schema from database"
+sync "Database push & pull"
 seed "Database seeder"
 generate "Generate model or seed"
 ```
